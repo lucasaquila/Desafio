@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.directwebremoting.annotations.AnnotationsConfigurator;
 import org.directwebremoting.annotations.DataTransferObject;
 import org.directwebremoting.annotations.GlobalFilter;
 import org.directwebremoting.annotations.RemoteProxy;
@@ -28,6 +29,7 @@ import org.springframework.format.datetime.DateFormatterRegistrar;
 import org.springframework.format.support.DefaultFormattingConversionService;
 import org.springframework.format.support.FormattingConversionService;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
@@ -46,17 +48,8 @@ public class AppWebConfiguration extends WebMvcConfigurerAdapter {
 		InternalResourceViewResolver resolver =	new InternalResourceViewResolver();
 		resolver.setPrefix("/WEB-INF/views/");
 		resolver.setSuffix(".jsp");
-		resolver.setViewClass(JstlView.class);//
+		resolver.setViewClass(JstlView.class);
 		return resolver;
-	}
-	
-	@Bean
-	public MessageSource messageSource(){
-		ReloadableResourceBundleMessageSource bundle = new ReloadableResourceBundleMessageSource();
-		bundle.setBasename("/WEB-INF/messages");
-		bundle.setDefaultEncoding("UTF-8");
-		bundle.setCacheSeconds(1);
-		return bundle;
 	}
 	
 	@Bean
@@ -68,7 +61,14 @@ public class AppWebConfiguration extends WebMvcConfigurerAdapter {
 		return conversionService;
 	}
 	
-	/*CONFIGURAÇÕES DWR*/
+	 @Override
+	  public void addResourceHandlers(ResourceHandlerRegistry registry) {
+	    registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
+	    registry.addResourceHandler("/assets/**").addResourceLocations("/assets/");
+	  }
+	
+	
+	/*CONFIGURAÃ‡Ã•ES DWR*/
 	@Bean
 	public DwrController dwrController(ApplicationContext applicationContext)
 	{
@@ -80,8 +80,8 @@ public class AppWebConfiguration extends WebMvcConfigurerAdapter {
 	        scanner.addIncludeFilter(new AnnotationTypeFilter(RemoteProxy.class));
 	        scanner.addIncludeFilter(new AnnotationTypeFilter(DataTransferObject.class));
 	        scanner.addIncludeFilter(new AnnotationTypeFilter(GlobalFilter.class));
-	        scanner.scan("package.to.scan");
-
+	        scanner.scan("br.com.projeto");
+//	        <dwr:annotation-scan base-package="org.krams.tutorial" scanDataTransferObject="true" scanRemoteProxy="true" />
 	        DwrController dwrController = new DwrController();
 	        dwrController.setDebug(true);
 	        dwrController.setConfigParams(configParam);
@@ -98,6 +98,7 @@ public class AppWebConfiguration extends WebMvcConfigurerAdapter {
         BeanNameUrlHandlerMapping beanNameUrlHandlerMapping = new BeanNameUrlHandlerMapping();
         return beanNameUrlHandlerMapping;
     }
+    
     @Bean
     public DwrHandlerMapping dwrHandlerMapping(DwrController dwrController){
         Map<String,DwrController> urlMap = new HashMap<String, DwrController>();
@@ -108,7 +109,6 @@ public class AppWebConfiguration extends WebMvcConfigurerAdapter {
         dwrHandlerMapping.setUrlMap(urlMap);
         return dwrHandlerMapping;
     }
-	
 	
 }
 

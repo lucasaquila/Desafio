@@ -1,6 +1,8 @@
 package br.com.projeto.controller;
 
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.ModelAndViewDefiningException;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
@@ -26,6 +29,7 @@ import br.com.projeto.service.UsuarioService;
 @Controller
 @Transactional
 @RequestMapping("/usuario")
+@RestController
 public class UsuarioController {
 
 	@Autowired
@@ -38,7 +42,8 @@ public class UsuarioController {
 		return modelAndView;
 	}
 
-	@RequestMapping(method=RequestMethod.POST, name="salvarUsuario")
+	/*@RequestMapping(method=RequestMethod.POST, name="salvarUsuario")*/
+	@RequestMapping(method=RequestMethod.POST, value ="save")
 	public ModelAndView save(@Valid @ModelAttribute("usuario") Usuario usuario, BindingResult bindingResult, RedirectAttributes redirectAttributes){
 		if(bindingResult.hasErrors())
 		{
@@ -47,16 +52,27 @@ public class UsuarioController {
 		/*usuarioDAO.save(usuario);*/
 		usuario.setSituacao(true);
 		usuarioService.save(usuario);
-		redirectAttributes.addFlashAttribute("sucesso", "Produto cadastrado com sucesso");
+		redirectAttributes.addFlashAttribute("sucesso", "Usuário cadastrado com sucesso");
 		return new ModelAndView("redirect:/usuario");
 	}
 	
 	@RequestMapping(method=RequestMethod.GET)
 	public ModelAndView list(){
 		ModelAndView modelAndView = new ModelAndView("usuario/list");
-		/*modelAndView.addObject("usuarios", usuarioDAO.list());*/
 		modelAndView.addObject("usuarios", usuarioService.findAll());
 		return modelAndView;
+	}
+	
+	@RequestMapping("/lista")
+	public ModelAndView usuarios(){
+
+		return new ModelAndView("usuario/usuarios");
+	}
+	
+	@RequestMapping("listagem")
+	public List<Usuario> getUsuarios(){
+		List<Usuario> usuarios =usuarioService.findAll();
+		return usuarios;
 	}
 
 

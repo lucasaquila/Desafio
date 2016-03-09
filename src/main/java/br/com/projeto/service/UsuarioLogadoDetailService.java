@@ -25,10 +25,10 @@ public class UsuarioLogadoDetailService implements UserDetailsService{
 		
 		try {
 			usuario = service.findByEmail(username);
-			LOG.info("Usuário encontrado: (" + username + ").");
+			LOG.info("Usuï¿½rio encontrado: (" + username + ").");
 		} catch (Exception e) {
-			LOG.error("Usuário NÃO encontrado: (" + username + ").");
-			throw new UsernameNotFoundException("Usuário " + username + " não encontrado");
+			LOG.error("Usuï¿½rio Nï¿½O encontrado: (" + username + ").");
+			throw new UsernameNotFoundException("Usuï¿½rio " + username + " nï¿½o encontrado");
 		}
 		return new UsuarioLogado(usuario);
 	}

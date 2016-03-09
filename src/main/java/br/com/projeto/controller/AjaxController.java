@@ -3,6 +3,7 @@ package br.com.projeto.controller;
 import javax.annotation.Resource;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -15,7 +16,7 @@ public class AjaxController {
  
  protected static Logger logger = Logger.getLogger("controller");
   
- @Resource(name="springService")
+ @Resource(name = "springService")
  private ArithmeticService springService;
   
  /**
@@ -25,7 +26,6 @@ public class AjaxController {
     public String getAjaxAddPage() {
      logger.debug("Received request to show AJAX, add page");
       
-     // This will resolve to /WEB-INF/jsp/ajax-add-page.jsp
      return "ajax-add-page";
     }
  }

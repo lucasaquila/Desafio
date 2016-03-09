@@ -6,8 +6,9 @@
 <title>Cadastro de produtos</title>
 </head>
 <body>
- 	<c:url var="save" value="/usuario/save" />
-	<form:form modelAttribute="usuario" action="${save}" method="post">
+   	<c:url var="save" value="/usuario/save" />
+	<form:form modelAttribute="usuario" action="${save}" method="post" commandName="usuario">   
+	<%-- <form:form action="${spring:mvcUrl('salvarUsuario').build()}" method="post" commandName="usuario"> --%>
 		<form:hidden path="id"/>
 		<div>
 		<label for="tipoUsuario">Tipo de Usuário</label>
