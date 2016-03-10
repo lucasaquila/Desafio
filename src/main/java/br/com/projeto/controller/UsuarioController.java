@@ -69,7 +69,7 @@ public class UsuarioController {
 		return new ModelAndView("usuario/usuarios");
 	}
 	
-	@RequestMapping("listagem")
+	@RequestMapping("/listagem")
 	public List<Usuario> getUsuarios(){
 		List<Usuario> usuarios =usuarioService.findAll();
 		return usuarios;

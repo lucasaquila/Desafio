@@ -159,6 +159,13 @@
 			<artifactId>angular-material</artifactId>
 			<version>1.0.6</version>
 		</dependency>
+		
+		<!-- Angular Material Icons -->
+		<dependency>
+		    <groupId>org.webjars.bower</groupId>
+		    <artifactId>angular-material-icons</artifactId>
+		    <version>0.6.0</version>
+		</dependency>
 
 		<!-- Angular Animate -->
 		<dependency>
@@ -171,6 +178,13 @@
 		<dependency>
 			<groupId>org.webjars.bower</groupId>
 			<artifactId>angular-aria</artifactId>
+			<version>1.5.0</version>
+		</dependency>
+		
+		<!-- Angular Messages -->
+		<dependency>
+			<groupId>org.webjars.bower</groupId>
+			<artifactId>angular-messages</artifactId>
 			<version>1.5.0</version>
 		</dependency>
 		

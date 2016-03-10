@@ -24,16 +24,15 @@ public class LoginController {
 		if(error)
 		{
 			System.out.println("login invalido");
-			model.addAttribute("error", "Login Inv·lido, senha ou nome de usu·rio n„o confere");
+			model.addAttribute("error", "Login Inv√°lido, senha ou nome de usu√°rio n√£o confere");
 			return new ModelAndView("/auth/login", model);
 		}
 		
 		if(error)
 		{
-			model.addAttribute("logout", "Usu·rio saiu do sistema com sucesso");
+			model.addAttribute("logout", "Usu√°rio saiu do sistema com sucesso");
 			return new ModelAndView("/auth/login", model);
 		}
-		System.out.println("Redireciona p·gina");
 		return new ModelAndView("redirect:/usuario");
 	}
 	
