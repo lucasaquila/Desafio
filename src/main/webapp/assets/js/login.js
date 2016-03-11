@@ -11,7 +11,7 @@ angular
             $mdSidenav(menuId).toggle();
         };
     });
-
+/*
 angular.module('hello', [ 'ngRoute' ]).config(function($routeProvider, $httpProvider) {
 
 	$routeProvider.when('/', {
@@ -92,3 +92,4 @@ angular.module('hello', [ 'ngRoute' ]).config(function($routeProvider, $httpProv
 		self.greeting = data;
 	})
 });
+*/

@@ -1,46 +1,5 @@
-/*angular.module('todoApp', [])
-  .controller('Usuarios', function($scope, $http){
-	  $scope.usuarios = [];
-	  
-	  $scope.listUsers = function () {
-		  $http.get('http://localhost:8080/desafio/usuario/listagem.json').
-		  	success ( function ( data )  {
-			  $scope.usuarios = data;
-			  console.log("listou!")
-		  })
-	  }
-	  
-  })
-  .controller('TodoListController', function() {
-    var todoList = this;
-    todoList.todos = [
-      {text:'learn angular', done:true},
-      {text:'build an angular app', done:false}];
- 
-    todoList.addTodo = function() {
-      todoList.todos.push({text:todoList.todoText, done:false});
-      todoList.todoText = '';
-    };
- 
-    todoList.remaining = function() {
-      var count = 0;
-      angular.forEach(todoList.todos, function(todo) {
-        count += todo.done ? 0 : 1;
-      });
-      return count;
-    };
- 
-    todoList.archive = function() {
-      var oldTodos = todoList.todos;
-      todoList.todos = [];
-      angular.forEach(oldTodos, function(todo) {
-        if (!todo.done) todoList.todos.push(todo);
-      });
-    };
-  });*/
 
-
-angular.module('demoApp', ['ngMaterial', 'md.data.table'])
+angular.module('demoApp', ['ngMaterial','md.data.table'])
     .config(function($mdThemingProvider) {
         $mdThemingProvider
             .theme('default')
@@ -53,13 +12,23 @@ angular.module('demoApp', ['ngMaterial', 'md.data.table'])
   
   $scope.usuarios = [];
   
+  
+  
   $scope.listUsers = function () {
 	  $http.get('/desafio/usuario/listagem').
 	  	success ( function ( data )  {
 		  $scope.usuarios = data;
 		  console.log("listou!")
 	  })
-  }
+  };
+  
+	$scope.adicionarUsuario = function(usuario) {
+		$http.post('/desafio/usuario/save', usuario).
+		success(function(){
+			console.log("cadastrado com sucesso")
+		})
+  	};
+ 
   
   $scope.selected = [];
   
@@ -77,23 +46,6 @@ angular.module('demoApp', ['ngMaterial', 'md.data.table'])
     page: 1
   };
   
-  $scope.desserts = {
-    "count": 9,
-    "data": [
-      {
-        "nome": "Lucas",
-        "email": "lucas-aquila@outlook.com" ,
-        "tipo": "Administrador",
-        "situacao": true
-      },
-      {
-          "nome": "Teste",
-          "email": "teste@teste.com" ,
-          "tipo": "Usuário",
-          "situacao": false
-        }
-    ]
-  };
   
   $scope.editComment = function (event, dessert) {
     event.stopPropagation(); // in case autoselect is enabled

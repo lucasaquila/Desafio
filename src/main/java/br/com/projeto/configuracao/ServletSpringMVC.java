@@ -1,5 +1,6 @@
 package br.com.projeto.configuracao;
 
+import javax.servlet.Filter;
 import javax.servlet.FilterRegistration;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -28,5 +29,10 @@ public class ServletSpringMVC extends AbstractAnnotationConfigDispatcherServletI
 		return new String[] {"/dwr/*","/"};
 	}
 
+	   @Override
+	    protected Filter[] getServletFilters() {
+	        Filter [] singleton = { new CORSFilter() };
+	        return singleton;
+	    }	
 
 }

@@ -13,6 +13,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -43,18 +44,18 @@ public class UsuarioController {
 	}
 
 	/*@RequestMapping(method=RequestMethod.POST, name="salvarUsuario")*/
-	@RequestMapping(method=RequestMethod.POST, value ="save")
+/*	@RequestMapping(method=RequestMethod.POST, value ="save")
 	public ModelAndView save(@Valid @ModelAttribute("usuario") Usuario usuario, BindingResult bindingResult, RedirectAttributes redirectAttributes){
 		if(bindingResult.hasErrors())
 		{
 			return form(usuario);
 		}
-		/*usuarioDAO.save(usuario);*/
+		usuarioDAO.save(usuario);
 		usuario.setSituacao(true);
 		usuarioService.save(usuario);
 		redirectAttributes.addFlashAttribute("sucesso", "Usuário cadastrado com sucesso");
 		return new ModelAndView("redirect:/usuario");
-	}
+	}*/
 	
 	@RequestMapping(method=RequestMethod.GET)
 	public ModelAndView list(){
@@ -74,6 +75,13 @@ public class UsuarioController {
 		List<Usuario> usuarios =usuarioService.findAll();
 		return usuarios;
 	}
-
+	
+	@RequestMapping(value = "/save", method = RequestMethod.POST)
+	public String save(@RequestBody Usuario usuario){
+		usuario.setSituacao(true);
+		usuarioService.save(usuario);
+		return "Salvou";
+	}
+	
 
 }
