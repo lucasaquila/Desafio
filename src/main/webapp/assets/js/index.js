@@ -7,10 +7,27 @@ angular.module('demoApp', ['ngMaterial','md.data.table'])
             .accentPalette('blue');
     })
     
-.controller('usuarioController', ['$mdEditDialog', '$q', '$scope', '$timeout', '$http', function ($mdEditDialog, $q, $scope, $timeout, $http) {
+    .config(['$httpProvider', function($httpProvider) {
+    $httpProvider.defaults.xsrfHeaderName = 'X-CSRF-TOKEN';
+    $httpProvider.interceptors.push(function() {
+        return {
+            response: function(response) {
+                $httpProvider.defaults.headers.common['X-CSRF-TOKEN'] = response.headers('X-CSRF-TOKEN');
+                return response;
+            }
+        }    
+    });
+}])
+    
+.controller('usuarioController', ['$mdEditDialog', '$q', '$scope', '$timeout', '$http',  function ($mdEditDialog, $q, $scope, $timeout, $http) {
   'use strict';
   
   $scope.usuarios = [];
+  $scope.usuario = {
+		  nome : "",
+		  tipoUsuario : "ROLE_USUARIO"
+		  	  
+  };
   
   
   
@@ -22,12 +39,32 @@ angular.module('demoApp', ['ngMaterial','md.data.table'])
 	  })
   };
   
-	$scope.adicionarUsuario = function(usuario) {
-		$http.post('/desafio/usuario/save', usuario).
+  $scope.adicionarUsuario = function(usuario) {
+	  	
+	  	console.log($scope.usuario);
+		$http.post('/desafio/usuario/save', $scope.usuario).
 		success(function(){
+			
 			console.log("cadastrado com sucesso")
 		})
+		.error(function(data,status,headers,config) {
+			console.log("erro");
+		})
   	};
+  
+/*  $scope.adicionarUsuario = function(usuario) {
+		$http.post('http://localhost:8080/desafio/usuario/save/', usuario)
+		.then(
+				function(response){
+					return response.data;
+				},
+				function(errResponse){
+					console.error('Erro ao criar usuário');
+					return $q.reject(errResponse);
+				}
+		
+		)
+	};*/
  
   
   $scope.selected = [];

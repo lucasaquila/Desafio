@@ -6,6 +6,8 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,14 +15,18 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.ModelAndViewDefiningException;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import br.com.projeto.entity.TipoUsuario;
 import br.com.projeto.entity.Usuario;
@@ -29,8 +35,8 @@ import br.com.projeto.service.UsuarioService;
 
 @Controller
 @Transactional
-@RequestMapping("/usuario")
 @RestController
+@RequestMapping("usuario")
 public class UsuarioController {
 
 	@Autowired
@@ -75,13 +81,16 @@ public class UsuarioController {
 		List<Usuario> usuarios =usuarioService.findAll();
 		return usuarios;
 	}
-	
+		
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
-	public String save(@RequestBody Usuario usuario){
-		usuario.setSituacao(true);
-		usuarioService.save(usuario);
-		return "Salvou";
+//	@ResponseBody
+	public Usuario save(@RequestBody Usuario usuario){
+        System.out.println("Entrou no método");
+//        return "No";
+        return usuarioService.save(usuario);
 	}
+
 	
 
+	
 }

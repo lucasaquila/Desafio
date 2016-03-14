@@ -26,14 +26,14 @@
     </md-tabs>
   
     <md-content  layout-gt-sm="column" ng-controller="usuarioController">
-    	
+  	
 		<div layout="row">
 			  <div flex="20">
 			  </div>
 			  <div flex=60>
 		  <h2>Cadastro de Usuários</h2>
 		  <p>Tipo de Usuário</p>
-    	   <md-radio-group ng-model="usuario.tipoUsuario" ng-model="ROLE_USUARIO">
+    	   <md-radio-group ng-model="usuario.tipoUsuario">
 		      <md-radio-button value="ROLE_USUARIO" aria-checked="true" class="md-checked">Usuário</md-radio-button>
 		      <md-radio-button value="ROLE_ADMINISTRADOR">Administrador</md-radio-button>
            </md-radio-group>
@@ -51,7 +51,7 @@
             	<input ng-model="usuario.password" type="password">
           </md-input-container>
           <div layout="row">
-          
+          <%-- <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/> --%>
           <md-button class="md-raised">Voltar</md-button>
           <div flex></div>
           <md-button class="md-raised md-primary" ng-click="adicionarUsuario(usuario)">Salvar</md-button>

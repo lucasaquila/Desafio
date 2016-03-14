@@ -22,8 +22,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private UsuarioLogadoDetailService service;
 	
+	
+	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
+		/*http.csrf().disable();*/
 		http.authorizeRequests()
 			.antMatchers("/webjars/**").permitAll()
 			.antMatchers("/assets/**").permitAll()
@@ -46,6 +49,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 			.permitAll()
 		.and()
 			.exceptionHandling().accessDeniedPage("/denied");
+		
 	
 	}
 	

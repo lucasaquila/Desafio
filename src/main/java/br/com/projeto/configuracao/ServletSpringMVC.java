@@ -31,7 +31,8 @@ public class ServletSpringMVC extends AbstractAnnotationConfigDispatcherServletI
 
 	   @Override
 	    protected Filter[] getServletFilters() {
-	        Filter [] singleton = { new CORSFilter() };
+	        Filter [] singleton = { new CORSFilter(), new CsrfHeaderFilter() };
+		   /*Filter [] singleton = { new CORSFilter() };*/
 	        return singleton;
 	    }	
 

@@ -21,11 +21,12 @@ public class UsuarioService {
 	@Autowired
 	private UsuarioRepository repository;
 	
-	public void save(Usuario usuario)
+	public Usuario save(Usuario usuario)
 	{
-		usuario.setSituacao(true);
+//		usuario.setSituacao(true);
 		String hash = new BCryptPasswordEncoder().encode(usuario.getPassword());
-		repository.save(usuario);
+		usuario.setPassword(hash);
+		return repository.save(usuario);
 	}
 	
 	public List<Usuario> findAll()
