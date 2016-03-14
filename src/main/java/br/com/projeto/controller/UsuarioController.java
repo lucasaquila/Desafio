@@ -90,7 +90,23 @@ public class UsuarioController {
         return usuarioService.save(usuario);
 	}
 
-	
+    @RequestMapping(value = "/alteraSituacao/{id}", method = RequestMethod.PUT)
+    public Usuario updateUser(@PathVariable("id") long id, @RequestBody Usuario usuario) {
+        System.out.println("Updating User " + id);
+          
+        /*Usuario currentUser = usuarioService.findById(id);*/
+          
+/*        if (currentUser==null) {
+            System.out.println("User with id " + id + " not found");
+            return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
+        }*/
+  
+        /*currentUser.setSituacao(usuario.getSituacao());*/
+
+          
+        usuarioService.updateUser(usuario.getSituacao(), id);
+        return usuario;
+    }
 
 	
 }

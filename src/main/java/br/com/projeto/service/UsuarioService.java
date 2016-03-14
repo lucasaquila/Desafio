@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
+
 import br.com.projeto.entity.Usuario;
 import br.com.projeto.repository.UsuarioRepository;
 
@@ -37,5 +39,15 @@ public class UsuarioService {
 	public Usuario findByEmail(String email) {
 		return repository.finByEmail(email);
 	}
+	
+	public Usuario findById(Long id) {
+		return repository.findOne(id);
+	}
+	
+	
+	  public void updateUser(Boolean situacao, Long id) {
+	        repository.changeSituacao(situacao, id);
+
+	    }
 	
 }

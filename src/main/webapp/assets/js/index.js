@@ -25,11 +25,21 @@ angular.module('demoApp', ['ngMaterial','md.data.table'])
   $scope.usuarios = [];
   $scope.usuario = {
 		  nome : "",
-		  tipoUsuario : "ROLE_USUARIO"
+		  tipoUsuario : "ROLE_USUARIO",
+		  situacao: true
 		  	  
   };
   
-  
+  $scope.change = function(selecionado){
+	  console.log("ID: " + selecionado.id + "Situação:" + selecionado.situacao);
+	  $http.put('/desafio/usuario/alteraSituacao/'+selecionado.id, selecionado).
+	  	success ( function ()  {
+	  		console.log("alterado com sucesso")
+	  })
+	  .error(function(data,status,headers,config) {
+			console.log("erro ao alterar");
+	  })
+  };
   
   $scope.listUsers = function () {
 	  $http.get('/desafio/usuario/listagem').
@@ -52,20 +62,6 @@ angular.module('demoApp', ['ngMaterial','md.data.table'])
 		})
   	};
   
-/*  $scope.adicionarUsuario = function(usuario) {
-		$http.post('http://localhost:8080/desafio/usuario/save/', usuario)
-		.then(
-				function(response){
-					return response.data;
-				},
-				function(errResponse){
-					console.error('Erro ao criar usuário');
-					return $q.reject(errResponse);
-				}
-		
-		)
-	};*/
- 
   
   $scope.selected = [];
   
@@ -78,7 +74,7 @@ angular.module('demoApp', ['ngMaterial','md.data.table'])
   };
   
   $scope.query = {
-    order: 'name',
+    order: 'nome',
     limit: 5,
     page: 1
   };

@@ -64,7 +64,7 @@
                 <td md-cell>{{usuario.email}}</td>
                 <td md-cell>{{usuario.tipoUsuario == "ROLE_USUARIO" ? "Usuário" : "Administrador" }}</td>
                 <td md-cell>
-                    <md-switch ng-model="usuario.situacao" aria-label="Switch 2" class="md-primary">
+                    <md-switch ng-model="usuario.situacao" aria-label="Switch 2" class="md-primary" ng-change="change(usuario)">
     				{{ usuario.situacao == true ? "Ativado" : "Desativado" }} 
     				</md-switch>
                 </td>
@@ -77,7 +77,6 @@
       </md-card>
     </md-content>
 	
-		
   </div>
 </div>
 	<script src="webjars/angularjs/1.5.0/angular.min.js"></script>
