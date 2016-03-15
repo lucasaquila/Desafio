@@ -1,4 +1,4 @@
-angular.module("desafioApp").controller('usuarioController', ['$mdEditDialog', '$q', '$scope', '$timeout', '$http',  function ($mdEditDialog, $q, $scope, $timeout, $http) {
+angular.module("desafioApp").controller('usuarioController', ['$mdEditDialog', '$q', '$scope', '$timeout', '$http', 'usuarioService','$location',  function ($mdEditDialog, $q, $scope, $timeout, $http, usuarioService, $location) {
   'use strict';
   
   $scope.usuarios = [];
@@ -9,9 +9,9 @@ angular.module("desafioApp").controller('usuarioController', ['$mdEditDialog', '
 		  	  
   };
   
-  $scope.change = function(selecionado){
+  $scope.alterarSituacao = function(selecionado){
 	  console.log("ID: " + selecionado.id + "Situação:" + selecionado.situacao);
-	  $http.put('/desafio/usuario/alteraSituacao/'+selecionado.id, selecionado).
+	  usuarioService.alterarSituacao(selecionado.id, selecionado).
 	  	success ( function ()  {
 	  		console.log("alterado com sucesso")
 	  })
@@ -21,7 +21,7 @@ angular.module("desafioApp").controller('usuarioController', ['$mdEditDialog', '
   };
   
   $scope.listUsers = function () {
-	  $http.get('/desafio/usuario/listagem').
+	  usuarioService.getUsuarios().
 	  	success ( function ( data )  {
 		  $scope.usuarios = data;
 		  console.log("listou!")
@@ -29,12 +29,11 @@ angular.module("desafioApp").controller('usuarioController', ['$mdEditDialog', '
   };
   
   $scope.adicionarUsuario = function(usuario) {
-	  	
 	  	console.log($scope.usuario);
-		$http.post('/desafio/usuario/save', $scope.usuario).
+		usuarioService.saveUsuario($scope.usuario).
 		success(function(){
-			
 			console.log("cadastrado com sucesso")
+			$location.path("/usuario");
 		})
 		.error(function(data,status,headers,config) {
 			console.log("erro");

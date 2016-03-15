@@ -188,6 +188,13 @@
 			<version>1.5.0</version>
 		</dependency>
 		
+		<!-- Angular Route -->
+		<dependency>
+			<groupId>org.webjars.npm</groupId>
+			<artifactId>angular-route</artifactId>
+			<version>1.5.0</version>
+		</dependency>
+		
 		<!-- Jackson JSON Mapper -->
 		<dependency>
 		    <groupId>com.fasterxml.jackson.core</groupId>
