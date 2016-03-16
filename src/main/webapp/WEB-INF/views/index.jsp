@@ -22,7 +22,7 @@
     </md-toolbar>
     <md-tabs style="background-color:#EAEAEA">
     	<md-tab label="Usuários" ng-click="redirecionar('/usuario')"></md-tab>
-    	<md-tab label="Contas Bancárias" ng-click="redirecionar('/usuario/form')"></md-tab>
+    	<md-tab label="Contas Bancárias" ng-click="redirecionar('/contaBancaria')"></md-tab>
     	<md-tab label="Movimentações"></md-tab>
     </md-tabs>
   
@@ -45,8 +45,10 @@
 	<script src="assets/js/config/materialConfig.js"></script>
 	<script src="assets/js/controllers/usuarioController.js"></script>
 	<script src="assets/js/controllers/usuarioDetalhesController.js"></script>
+	<script src="assets/js/controllers/contaBancariaController.js"></script>
 	<script src="assets/js/controllers/indexController.js"></script>
 	<script src="assets/js/services/usuarioService.js"></script>
+	<script src="assets/js/services/contaBancariaService.js"></script>
 	
 </body>
 </html>

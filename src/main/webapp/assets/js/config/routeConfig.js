@@ -1,4 +1,6 @@
 angular.module('desafioApp').config(function($routeProvider) {
+	
+	/*USUÁRIOS*/
 	$routeProvider.when("/usuario", {
 		templateUrl: "usuario",
 		controller: "usuarioController"
@@ -17,6 +19,17 @@ angular.module('desafioApp').config(function($routeProvider) {
 				return usuarioService.getUsuario($route.current.params.id);
 			}
 		}
+	});
+	
+	/*CONTAS BANCÁRIAS*/
+	$routeProvider.when("/contaBancaria", {
+		templateUrl: "contaBancaria",
+		controller: "contaBancariaController"
+	});
+	
+	$routeProvider.when("/contaBancaria/form", {
+		templateUrl: "contaBancaria/form",
+		controller: "contaBancariaController"
 	});
 	
 	/*$routeProvider.otherwise({redirectTo: "/usuario"})*/

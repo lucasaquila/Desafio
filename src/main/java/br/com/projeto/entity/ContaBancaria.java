@@ -14,13 +14,12 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import org.springframework.data.jpa.domain.AbstractPersistable;
+import org.springframework.data.jpa.domain.AbstractPersistable_;
+
 @Entity
 @Table(name = "contabancaria")
-public class ContaBancaria {
-		
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+public class ContaBancaria extends AbstractPersistable<Long>{
 	
 	@NotNull
 	@Column(nullable=false, length=10)
@@ -28,7 +27,8 @@ public class ContaBancaria {
 	
 	@NotNull
 	@Column(nullable=false, length=20)
-	private String conta;
+	private String numero;
+	
 	private BigDecimal saldo;
 	
 	@ManyToOne
@@ -38,12 +38,9 @@ public class ContaBancaria {
 	@Enumerated(EnumType.STRING)
 	private Banco banco;
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
+	@Override
+	protected void setId(Long id) {
+		super.setId(id);
 	}
 
 	public String getAgencia() {
@@ -54,12 +51,12 @@ public class ContaBancaria {
 		this.agencia = agencia;
 	}
 
-	public String getConta() {
-		return conta;
+	public String getNumero() {
+		return numero;
 	}
 
-	public void setConta(String conta) {
-		this.conta = conta;
+	public void setNumero(String numero) {
+		this.numero = numero;
 	}
 
 	public BigDecimal getSaldo() {

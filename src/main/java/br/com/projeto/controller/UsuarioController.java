@@ -56,13 +56,7 @@ public class UsuarioController {
 		modelAndView.addObject("usuarios", usuarioService.findAll());
 		return modelAndView;
 	}
-	
-	@RequestMapping("/lista")
-	public ModelAndView usuarios(){
 
-		return new ModelAndView("usuario/usuarios");
-	}
-	
 	@RequestMapping("/listagem")
 	public List<Usuario> getUsuarios(){
 		List<Usuario> usuarios =usuarioService.findAll();
