@@ -27,10 +27,7 @@
     </md-tabs>
   
     <div ng-view>
-    
-    
-    
-    	</div>
+   	</div>
 	
 		
   </div>
@@ -47,11 +44,9 @@
 	<script src="assets/js/config/routeConfig.js"></script>
 	<script src="assets/js/config/materialConfig.js"></script>
 	<script src="assets/js/controllers/usuarioController.js"></script>
+	<script src="assets/js/controllers/usuarioDetalhesController.js"></script>
 	<script src="assets/js/controllers/indexController.js"></script>
 	<script src="assets/js/services/usuarioService.js"></script>
-	
-	
-
 	
 </body>
 </html>

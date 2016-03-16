@@ -25,7 +25,6 @@ public class UsuarioService {
 	
 	public Usuario save(Usuario usuario)
 	{
-//		usuario.setSituacao(true);
 		String hash = new BCryptPasswordEncoder().encode(usuario.getPassword());
 		usuario.setPassword(hash);
 		return repository.save(usuario);
@@ -44,10 +43,21 @@ public class UsuarioService {
 		return repository.findOne(id);
 	}
 	
+	public void deleteUsuario(Long id){
+		repository.delete(id);
+	}
 	
-	  public void updateUser(Boolean situacao, Long id) {
-	        repository.changeSituacao(situacao, id);
-
-	    }
+	public void updateUser(Boolean situacao, Long id) {
+		repository.changeSituacao(situacao, id);
+	}
+	
+	public Usuario updateUsuario(Usuario usuario) {
+		String novoPassword = usuario.getPasswordEdit();
+		if(novoPassword != null && !novoPassword.isEmpty()){
+			String hash = new BCryptPasswordEncoder().encode(usuario.getPasswordEdit());
+			usuario.setPassword(hash);	
+		}
+		return repository.save(usuario);
+	}
 	
 }

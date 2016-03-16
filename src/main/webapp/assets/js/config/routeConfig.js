@@ -9,5 +9,15 @@ angular.module('desafioApp').config(function($routeProvider) {
 		controller: "usuarioController"
 	});
 	
+	$routeProvider.when("/usuario/editar/:id", {
+		templateUrl: "usuario/editar ",
+		controller: "usuarioDetalhesController",
+		resolve: {
+			usuario: function(usuarioService, $route){
+				return usuarioService.getUsuario($route.current.params.id);
+			}
+		}
+	});
+	
 	/*$routeProvider.otherwise({redirectTo: "/usuario"})*/
 });

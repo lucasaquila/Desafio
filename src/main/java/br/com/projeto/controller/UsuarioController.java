@@ -8,6 +8,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -49,20 +50,6 @@ public class UsuarioController {
 		return modelAndView;
 	}
 
-	/*@RequestMapping(method=RequestMethod.POST, name="salvarUsuario")*/
-/*	@RequestMapping(method=RequestMethod.POST, value ="save")
-	public ModelAndView save(@Valid @ModelAttribute("usuario") Usuario usuario, BindingResult bindingResult, RedirectAttributes redirectAttributes){
-		if(bindingResult.hasErrors())
-		{
-			return form(usuario);
-		}
-		usuarioDAO.save(usuario);
-		usuario.setSituacao(true);
-		usuarioService.save(usuario);
-		redirectAttributes.addFlashAttribute("sucesso", "Usuário cadastrado com sucesso");
-		return new ModelAndView("redirect:/usuario");
-	}*/
-	
 	@RequestMapping(method=RequestMethod.GET)
 	public ModelAndView list(){
 		ModelAndView modelAndView = new ModelAndView("usuario/list");
@@ -83,20 +70,53 @@ public class UsuarioController {
 	}
 		
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
-//	@ResponseBody
 	public Usuario save(@RequestBody Usuario usuario){
         System.out.println("Entrou no método");
-//        return "No";
         return usuarioService.save(usuario);
 	}
 
     @RequestMapping(value = "/alteraSituacao/{id}", method = RequestMethod.PUT)
-    public Usuario updateUser(@PathVariable("id") long id, @RequestBody Usuario usuario) {
+    public Usuario updateUsuario(@PathVariable("id") long id, @RequestBody Usuario usuario) {
         System.out.println("Updating User " + id);
           
         usuarioService.updateUser(usuario.getSituacao(), id);
         return usuario;
     }
+    
+    @RequestMapping(value = "/editar/{id}", method = RequestMethod.PUT)
+    public Usuario editar(@PathVariable("id") long id, @RequestBody Usuario usuario) {
+          
+        usuarioService.updateUsuario(usuario);
+        return usuario;
+    }
+    
+	@RequestMapping(value = "/editar", method = RequestMethod.GET)
+	public ModelAndView alterar(){
+		ModelAndView modelAndView =	new ModelAndView("usuario/editar");
+		return modelAndView;
+	}
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public Usuario getUsuario(@PathVariable("id") long id) {
+        Usuario usuario = usuarioService.findById(id);
+        
+        return usuario;
+    }
+    
+	@RequestMapping(value = "/excluirUsuario/{id}", method = RequestMethod.DELETE)
+	public Usuario excluir(@PathVariable("id") long id){
+		
+		Usuario usuario = usuarioService.findById(id);
+		usuarioService.deleteUsuario(id);
+		return usuario;
+	}
+    
+    
+/*    @RequestMapping(value = "/recuperaUsuario/{id}", method = RequestMethod.GET)
+    public Usuario getUser(@PathVariable("id") long id) {
+        Usuario usuario = usuarioService.findById(id);
+        return usuario;
+    }*/
 
 	
 }

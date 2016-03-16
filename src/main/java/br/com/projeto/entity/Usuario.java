@@ -13,6 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Length;
@@ -37,6 +38,9 @@ public class Usuario extends AbstractPersistable<Long>{
 	@NotBlank
 	@Column(nullable=false)
 	private String password;
+	
+	@Transient
+	private String passwordEdit;
 	
 	@Enumerated(EnumType.STRING)
 	private TipoUsuario tipoUsuario;
@@ -87,6 +91,16 @@ public class Usuario extends AbstractPersistable<Long>{
 	public void setSituacao(Boolean situacao) {
 		this.situacao = situacao;
 	}
+
+	public String getPasswordEdit() {
+		return passwordEdit;
+	}
+
+	public void setPasswordEdit(String passwordEdit) {
+		this.passwordEdit = passwordEdit;
+	}
+	
+	
 
 	
 }

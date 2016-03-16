@@ -44,11 +44,11 @@
     				</md-switch>
                 </td>
                 <td md-cell>
-        			<md-button class="md-icon-button" aria-label="edit">
+        			<md-button class="md-icon-button" aria-label="edit" href="#/usuario/editar/{{usuario.id}}">
         			<ng-md-icon icon="edit"> </g-md-icon>
 					</md-button>
-        			<md-button class="md-icon-button" aria-label="edit">
-        			<ng-md-icon icon="delete"> </g-md-icon>
+        			<md-button class="md-icon-button" aria-label="edit" ng-click="excluirUsuario(usuario.id)">
+        			<ng-md-icon icon="delete"></g-md-icon>
 					</md-button>
 
 				</td>

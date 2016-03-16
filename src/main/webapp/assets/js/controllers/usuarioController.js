@@ -1,4 +1,4 @@
-angular.module("desafioApp").controller('usuarioController', ['$mdEditDialog', '$q', '$scope', '$timeout', '$http', 'usuarioService','$location',  function ($mdEditDialog, $q, $scope, $timeout, $http, usuarioService, $location) {
+angular.module("desafioApp").controller('usuarioController', ['$mdEditDialog', '$q', '$scope', '$timeout', '$http', 'usuarioService','$location', '$routeParams',  function ($mdEditDialog, $q, $scope, $timeout, $http, usuarioService, $location, $routeParams) {
   'use strict';
   
   $scope.usuarios = [];
@@ -7,6 +7,23 @@ angular.module("desafioApp").controller('usuarioController', ['$mdEditDialog', '
 		  tipoUsuario : "ROLE_USUARIO",
 		  situacao: true
 		  	  
+  };
+  
+  $scope.excluirUsuario = function(id){
+	  console.log("id: " + id)
+	  usuarioService.excluirUsuario(id)
+	  .success(function(){
+		  console.log("Excluido com sucesso...")
+		  usuarioService.getUsuarios().
+		  success ( function ( data )  {
+			  $scope.usuarios = data;
+				  console.log("listou!")
+		  })
+		  
+	  })
+	  .error(function() {
+			console.log("erro ao excluir usuário!");
+	  })
   };
   
   $scope.alterarSituacao = function(selecionado){
