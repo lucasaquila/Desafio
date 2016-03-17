@@ -8,6 +8,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
@@ -42,7 +43,7 @@ public class UsuarioController {
 
 	@Autowired
 	private UsuarioService usuarioService;
-
+	
 	@RequestMapping(value = "/form", method = RequestMethod.GET)
 	public ModelAndView form(@ModelAttribute("usuario") Usuario usuario){
 		ModelAndView modelAndView =	new ModelAndView("usuario/form");
@@ -93,7 +94,6 @@ public class UsuarioController {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public Usuario getUsuario(@PathVariable("id") long id) {
         Usuario usuario = usuarioService.findById(id);
-        
         return usuario;
     }
     

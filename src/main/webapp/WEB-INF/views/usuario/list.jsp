@@ -1,6 +1,6 @@
 <%-- <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> --%>
     <md-content layout="column" flex ng-init="listUsers()">
-    	<h2>Lista de Usuários</h2>
+    	<h2 style="margin-left:10px">Lista de Usuários</h2>
       <md-card>
         <md-toolbar class="md-table-toolbar md-default" ng-hide="options.rowSelection && selected.length">
           <div class="md-toolbar-tools">
@@ -44,11 +44,11 @@
     				</md-switch>
                 </td>
                 <td md-cell>
-        			<md-button class="md-icon-button" aria-label="edit" href="#/usuario/editar/{{usuario.id}}">
-        			<ng-md-icon icon="edit"> </g-md-icon>
+        			<md-button class="md-icon-button md-primary md-button md-ink-ripple" size="20" aria-label="edit" href="#/usuario/editar/{{usuario.id}}">
+        			<ng-md-icon icon="edit" size="20"> </g-md-icon>
 					</md-button>
-        			<md-button class="md-icon-button" aria-label="edit" ng-click="excluirUsuario(usuario.id)">
-        			<ng-md-icon icon="delete"></g-md-icon>
+        			<md-button class="md-icon-button md-primary md-button md-ink-ripple" size="20" aria-label="edit" ng-click="excluirUsuario(usuario.id)">
+        			<ng-md-icon icon="delete" size="20"></g-md-icon>
 					</md-button>
 
 				</td>

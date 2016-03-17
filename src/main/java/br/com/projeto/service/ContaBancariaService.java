@@ -14,7 +14,16 @@ public class ContaBancariaService {
 	@Autowired
 	private ContaBancariaRepository repository;
 	
+	public ContaBancaria findById(Long id)
+	{
+		return repository.findOne(id);
+	}
+	
 	public List<ContaBancaria> findAll(){
 		return repository.findAll();
+	}
+	
+	public ContaBancaria save(ContaBancaria contaBancaria){
+		return repository.save(contaBancaria);
 	}
 }

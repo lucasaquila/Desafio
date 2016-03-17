@@ -16,7 +16,8 @@
 	      	<label>Nome</label>
 	      		<input ng-model="usuario.nome">
 	      </md-input-container>
-          <md-input-container class="md-block" flex-gt-sm>
+	      <div layout="row">
+          <md-input-container class="md-block" flex-gt-sm flex="50">
           	<label>E-mail</label>
             	<input ng-model="usuario.email">
           </md-input-container>
@@ -24,6 +25,7 @@
           	<label>Senha</label>
             	<input ng-model="usuario.passwordEdit" type="password" value="">
           </md-input-container>
+          </div>
           <div layout="row">
           <%-- <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/> --%>
           <md-button class="md-raised" href="#/usuario">Voltar</md-button>

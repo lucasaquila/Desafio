@@ -12,7 +12,7 @@ angular.module('desafioApp').config(function($routeProvider) {
 	});
 	
 	$routeProvider.when("/usuario/editar/:id", {
-		templateUrl: "usuario/editar ",
+		templateUrl: "usuario/editar",
 		controller: "usuarioDetalhesController",
 		resolve: {
 			usuario: function(usuarioService, $route){
@@ -29,7 +29,17 @@ angular.module('desafioApp').config(function($routeProvider) {
 	
 	$routeProvider.when("/contaBancaria/form", {
 		templateUrl: "contaBancaria/form",
-		controller: "contaBancariaController"
+		controller: "contaBancariaController",
+/*		resolve: {
+			bancos: function(contaBancariaService){
+				return contaBancariaService.getBancos();
+			}
+		}*/
+	});
+	
+	$routeProvider.when("/contaBancaria/saldoInicial/:id", {
+		templateUrl: "contaBancaria/form",
+		controller: "contaBancariaController",
 	});
 	
 	/*$routeProvider.otherwise({redirectTo: "/usuario"})*/

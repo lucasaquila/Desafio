@@ -40,6 +40,7 @@
 	<script src="webjars/angular-material/1.0.6/angular-material.min.js"></script>
 	<script src="webjars/angular-material-icons/0.6.0/angular-material-icons.min.js"></script>
 	<script src="http://rawgit.com/daniel-nagy/md-data-table/master/dist/md-data-table.js"></script>
+	<script src="assets/js/angular-locale_pt-br.js"></script>
 	<script src="assets/js/app.js"></script>
 	<script src="assets/js/config/routeConfig.js"></script>
 	<script src="assets/js/config/materialConfig.js"></script>

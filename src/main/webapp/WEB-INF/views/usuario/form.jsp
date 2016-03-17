@@ -5,6 +5,7 @@
 			  <div flex=60>
 		  <h2>Cadastro de Usuários</h2>
 		  <p>Tipo de Usuário</p>
+		  <md-input-container class="md-block" flex-gt-sm>
     	   <md-radio-group ng-model="usuario.tipoUsuario">
 		      <md-radio-button value="ROLE_USUARIO" aria-checked="true" class="md-checked">Usuário</md-radio-button>
 		      <md-radio-button value="ROLE_ADMINISTRADOR">Administrador</md-radio-button>
@@ -14,7 +15,8 @@
 	      	<label>Nome</label>
 	      		<input ng-model="usuario.nome">
 	      </md-input-container>
-          <md-input-container class="md-block" flex-gt-sm>
+	      <div layout="row">
+          <md-input-container class="md-block" flex-gt-sm flex="50">
           	<label>E-mail</label>
             	<input ng-model="usuario.email">
           </md-input-container>
@@ -22,6 +24,7 @@
           	<label>Senha</label>
             	<input ng-model="usuario.password" type="password">
           </md-input-container>
+          </div>
           <div layout="row">
           <%-- <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/> --%>
           <md-button class="md-raised" href="#/usuario">Voltar</md-button>

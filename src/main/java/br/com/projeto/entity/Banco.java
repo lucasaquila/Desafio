@@ -4,8 +4,18 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 public enum Banco {
-	ITAU,
-	CAIXA,
-	SANTANDER,
-	HSBC
+	CAIXA("Caixa"),
+	HSBC("HSBC"),
+	ITAU("Itaú"),
+	SANTANDER("Santander");
+	
+	Banco(String banco){
+		this.banco = banco;
+		}
+	
+	private String banco;
+	
+	public String getBanco() {
+		return banco;
+		}
 }
