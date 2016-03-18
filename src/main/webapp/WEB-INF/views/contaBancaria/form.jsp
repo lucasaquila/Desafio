@@ -33,8 +33,10 @@
 		<div layout="row">
 			<md-button class="md-raised" href="#/contaBancaria">Voltar</md-button>
 			<div flex></div>
-			<md-button class="md-raised md-primary"
+			<md-button class="md-raised md-primary" ng-if="contaBancaria.id == undefined"
 				ng-click="adicionarContaBancaria(contaBancaria)">Salvar</md-button>
+			<md-button class="md-raised md-primary" ng-if="contaBancaria.id != undefined"
+				ng-click="editarContaBancaria()">Editar</md-button>
 		</div>
 		<div flex></div>
 	</div>

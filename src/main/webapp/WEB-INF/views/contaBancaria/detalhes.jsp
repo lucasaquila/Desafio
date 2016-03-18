@@ -30,15 +30,14 @@
 		<div layout="row">
 		<md-input-container class="md-block" flex>
 	    	<label>Saldo Inicial</label> 
-			<input type="number" ng-model="contaBancaria.saldo">
-			{{contaBancaria.saldo}}
+			<input type="text" ng-model="contaBancaria.saldo" ng-disabled="true">
 		</md-input-container>
 		</div>
 		<div layout="row">
 			<md-button class="md-raised" href="#/contaBancaria">Voltar</md-button>
 			<div flex></div>
-			<md-button class="md-raised md-primary"
-				ng-click="atualizarSaldoInicial(contaBancaria)">Inserir</md-button>
+<!-- 			<md-button class="md-raised md-primary"
+				ng-click="atualizarSaldoInicial(contaBancaria)">Inserir</md-button> -->
 		</div>
 		<div flex></div>
 	</div>

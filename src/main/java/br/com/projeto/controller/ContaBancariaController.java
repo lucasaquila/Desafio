@@ -1,9 +1,11 @@
 package br.com.projeto.controller;
 
+import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -18,6 +20,7 @@ import br.com.projeto.entity.Banco;
 import br.com.projeto.entity.ContaBancaria;
 import br.com.projeto.entity.TipoUsuario;
 import br.com.projeto.entity.Usuario;
+import br.com.projeto.entity.UsuarioLogado;
 import br.com.projeto.service.ContaBancariaService;
 import br.com.projeto.service.UsuarioService;
 
@@ -61,6 +64,12 @@ public class ContaBancariaController {
 		return modelAndView;
 	}
 	
+	@RequestMapping(value = "/detalhes", method = RequestMethod.GET)
+	public ModelAndView detalhes(){
+		ModelAndView modelAndView =	new ModelAndView("contaBancaria/detalhes");
+		return modelAndView;
+	}
+	
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
 	public ContaBancaria save(@RequestBody ContaBancaria contaBancaria){
         System.out.println("Entrou no método");
@@ -73,6 +82,26 @@ public class ContaBancariaController {
 		return modelAndView;
 	}
 	
+    @RequestMapping(value = "/saldoInicial/{id}", method = RequestMethod.PUT)
+    public BigDecimal inserirSaldoInicial(@PathVariable("id") long id, @RequestBody BigDecimal saldo) {
+        contaBancariaService.inserirSaldoInicial(id, saldo);
+        return saldo;
+    }
+    
+    @RequestMapping(value = "/editar/{id}", method = RequestMethod.PUT)
+    public ContaBancaria editar(@PathVariable("id") long id, @RequestBody ContaBancaria contaBancaria) {
+    	
+        UsuarioLogado user = (UsuarioLogado)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String tipo = user.getTipoUsuario().toString();
+    	
+        contaBancariaService.updateContaBancaria(contaBancaria);
+        return contaBancaria;
+    }
 	
+	@RequestMapping(value = "/excluir/{id}", method = RequestMethod.DELETE)
+	public String excluirContaBancaria(@PathVariable("id") long id){
+		contaBancariaService.deleteContaBancaria(id);
+		return "";
+	}
 	
 }

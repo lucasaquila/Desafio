@@ -16,10 +16,25 @@ angular.module("desafioApp").factory("contaBancariaService", ['$http', function(
 		return $http.post('/desafio/contaBancaria/save', contaBancaria);
 	};
 	
+	var _inserirSaldoInicial = function(id, contaBancaria){
+		return $http.put('/desafio/contaBancaria/saldoInicial/'+id, contaBancaria);
+	};
+	
+	var _editarContaBancaria = function(id, contaBancaria){
+		return $http.put('/desafio/contaBancaria/editar/'+id, contaBancaria);
+	};	
+	
+	var _excluirContaBancaria = function(id){
+		return $http.delete('/desafio/contaBancaria/excluir/'+id);
+	}
+	
 	return {
 		getContasBancarias: _getContasBancarias,
 		getContaBancaria: _getContaBancaria,
 		getBancos: _getBancos,
 		saveContaBancaria: _saveContaBancaria,
+		inserirSaldoInicial: _inserirSaldoInicial,
+		editarContaBancaria: _editarContaBancaria,
+		excluirContaBancaria: _excluirContaBancaria
 	};
 }]);

@@ -1,5 +1,17 @@
 angular.module('desafioApp').config(function($routeProvider) {
 	
+	
+	/*USUÁRIOS*/
+	$routeProvider.when("/logout", {
+		templateUrl: "login",
+		controller: "usuarioController"
+	});
+	
+	$routeProvider.when("/login", {
+		templateUrl: "login",
+		controller: "usuarioController"
+	});
+	
 	/*USUÁRIOS*/
 	$routeProvider.when("/usuario", {
 		templateUrl: "usuario",
@@ -30,15 +42,20 @@ angular.module('desafioApp').config(function($routeProvider) {
 	$routeProvider.when("/contaBancaria/form", {
 		templateUrl: "contaBancaria/form",
 		controller: "contaBancariaController",
-/*		resolve: {
-			bancos: function(contaBancariaService){
-				return contaBancariaService.getBancos();
-			}
-		}*/
+	});
+	
+	$routeProvider.when("/contaBancaria/editar/:id", {
+		templateUrl: "contaBancaria/form",
+		controller: "contaBancariaController",
 	});
 	
 	$routeProvider.when("/contaBancaria/saldoInicial/:id", {
-		templateUrl: "contaBancaria/form",
+		templateUrl: "contaBancaria/saldoInicial",
+		controller: "contaBancariaController",
+	});
+	
+	$routeProvider.when("/contaBancaria/detalhes/:id", {
+		templateUrl: "contaBancaria/detalhes",
 		controller: "contaBancariaController",
 	});
 	

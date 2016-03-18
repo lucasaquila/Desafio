@@ -80,7 +80,6 @@ public class UsuarioController {
     
     @RequestMapping(value = "/editar/{id}", method = RequestMethod.PUT)
     public Usuario editar(@PathVariable("id") long id, @RequestBody Usuario usuario) {
-          
         usuarioService.updateUsuario(usuario);
         return usuario;
     }

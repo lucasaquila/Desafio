@@ -1,10 +1,11 @@
 <%-- <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> --%>
+
+
     <md-content layout="column" flex ng-init="listUsers()">
     	<h2 style="margin-left:10px">Lista de Usuários</h2>
       <md-card>
         <md-toolbar class="md-table-toolbar md-default" ng-hide="options.rowSelection && selected.length">
           <div class="md-toolbar-tools">
-			
             <!-- <span>Lista de Usuários</span> -->
 
 		    <div flex="40">
@@ -16,14 +17,17 @@
 <!--     		<div flex="50">
     			<md-button class="md-raised md-primary" style="color:white">Pesquisar</md-button>
     		</div> -->
+    		
+    		<security:authorize access="hasAnyRole('ADMINISTRADOR')">
     		<div flex layout="row" layout-align="end end">
-    			<md-button class="md-raised md-primary" style="color:white; background-color:green" href="#/usuario/form">Novo</md-button>
+    			<md-button class="md-raised md-primary" style="color:white; background-color:#4EBD4E" href="#/usuario/form">Novo</md-button>
     		</div>
+    		</security:authorize>
           </div>
         </md-toolbar>
         <md-divider></md-divider>
         <md-table-container>
-          <table md-table md-row-select="options.rowSelection" ng-model="selected" md-progress="promise">
+          <table md-table md-row-select="false" ng-model="selected" md-progress="promise">
             <thead md-head md-order="query.order" md-on-reorder="logOrder">
               <tr md-row>
                 <th md-column md-order-by="nome"><span>Nome</span></th>
@@ -34,7 +38,7 @@
               </tr>
             </thead>
             <tbody md-body>
-              <tr md-row md-select="usuario" md-on-select="logItem" md-auto-select="options.autoSelect" ng-repeat="usuario in usuarios | filter: busca | orderBy: '-nome' | limitTo: query.limit : (query.page -1) * query.limit">
+              <tr md-row md-select="usuario" md-on-select="true" md-auto-select="true" ng-repeat="usuario in usuarios | filter: busca | orderBy: '-nome' | limitTo: query.limit : (query.page -1) * query.limit">
                 <td md-cell>{{usuario.nome}}</td>
                 <td md-cell>{{usuario.email}}</td>
                 <td md-cell>{{usuario.tipoUsuario == "ROLE_USUARIO" ? "Usuário" : "Administrador" }}</td>
@@ -44,13 +48,11 @@
     				</md-switch>
                 </td>
                 <td md-cell>
+                <security:authorize access="hasAnyRole('ADMINISTRADOR')">
         			<md-button class="md-icon-button md-primary md-button md-ink-ripple" size="20" aria-label="edit" href="#/usuario/editar/{{usuario.id}}">
         			<ng-md-icon icon="edit" size="20"> </g-md-icon>
 					</md-button>
-        			<md-button class="md-icon-button md-primary md-button md-ink-ripple" size="20" aria-label="edit" ng-click="excluirUsuario(usuario.id)">
-        			<ng-md-icon icon="delete" size="20"></g-md-icon>
-					</md-button>
-
+				</security:authorize>
 				</td>
               </tr>
             </tbody>
