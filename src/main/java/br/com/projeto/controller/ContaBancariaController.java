@@ -5,7 +5,9 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestWrapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -34,8 +36,8 @@ public class ContaBancariaController {
 	private ContaBancariaService contaBancariaService;
 	
 	@RequestMapping("/getContasBancarias")
-	public List<ContaBancaria> getContasBancarias(){
-		List<ContaBancaria> contasBancarias = contaBancariaService.findAll();
+	public List<ContaBancaria> getContasBancarias(SecurityContextHolderAwareRequestWrapper request){
+		List<ContaBancaria> contasBancarias = contaBancariaService.findAll(request);
 		return contasBancarias;
 	}
 	
@@ -58,6 +60,7 @@ public class ContaBancariaController {
 		return modelAndView;
 	}
 	
+	@PreAuthorize("hasRole('ROLE_ADMINISTRADOR')")
 	@RequestMapping(value = "/form", method = RequestMethod.GET)
 	public ModelAndView form(){
 		ModelAndView modelAndView =	new ModelAndView("contaBancaria/form");
@@ -76,18 +79,21 @@ public class ContaBancariaController {
         return contaBancariaService.save(contaBancaria);
 	}
 	
+	@PreAuthorize("hasRole('ROLE_ADMINISTRADOR')")
 	@RequestMapping(value = "/saldoInicial", method = RequestMethod.GET)
 	public ModelAndView alterar(){
 		ModelAndView modelAndView =	new ModelAndView("contaBancaria/saldoInicial");
 		return modelAndView;
 	}
 	
+	@PreAuthorize("hasRole('ROLE_ADMINISTRADOR')")
     @RequestMapping(value = "/saldoInicial/{id}", method = RequestMethod.PUT)
     public BigDecimal inserirSaldoInicial(@PathVariable("id") long id, @RequestBody BigDecimal saldo) {
         contaBancariaService.inserirSaldoInicial(id, saldo);
         return saldo;
     }
     
+	@PreAuthorize("hasRole('ROLE_ADMINISTRADOR')")
     @RequestMapping(value = "/editar/{id}", method = RequestMethod.PUT)
     public ContaBancaria editar(@PathVariable("id") long id, @RequestBody ContaBancaria contaBancaria) {
     	
@@ -98,6 +104,7 @@ public class ContaBancariaController {
         return contaBancaria;
     }
 	
+	@PreAuthorize("hasRole('ROLE_ADMINISTRADOR')")
 	@RequestMapping(value = "/excluir/{id}", method = RequestMethod.DELETE)
 	public String excluirContaBancaria(@PathVariable("id") long id){
 		contaBancariaService.deleteContaBancaria(id);

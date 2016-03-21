@@ -1,6 +1,7 @@
 package br.com.projeto.entity;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -12,16 +13,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.springframework.data.jpa.domain.AbstractPersistable;
+
 import com.sun.istack.internal.NotNull;
 import com.sun.javafx.scene.control.skin.FXVK.Type;
 
 @Entity
 @Table(name = "lancamento")
-public class Lancamento {
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+public class Lancamento extends AbstractPersistable<Long>{
 	
 	private String observacao;
 	
@@ -35,12 +34,14 @@ public class Lancamento {
 	@Enumerated(EnumType.STRING)
 	private TipoLancamento tipoLancamento;
 
-	public Long getId() {
-		return id;
+	private LocalDate data;
+	
+	public LocalDate getData() {
+		return data;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setData(LocalDate data) {
+		this.data = data;
 	}
 
 	public String getObservacao() {
@@ -74,6 +75,14 @@ public class Lancamento {
 	public void setTipoLancamento(TipoLancamento tipoLancamento) {
 		this.tipoLancamento = tipoLancamento;
 	}
+
+	@Override
+	protected void setId(Long id) {
+		// TODO Auto-generated method stub
+		super.setId(id);
+	}
+	
+	
 	
 	
 

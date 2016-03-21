@@ -28,7 +28,7 @@
     <md-tabs style="background-color:#EAEAEA">
     	<md-tab label="Usuários" ng-click="redirecionar('/usuario')"></md-tab>
     	<md-tab label="Contas Bancárias" ng-click="redirecionar('/contaBancaria')"></md-tab>
-    	<md-tab label="Movimentações"></md-tab>
+    	<md-tab label="Movimentações" ng-click="redirecionar('lancamento')"></md-tab>
     </md-tabs>
   
     <div ng-view>
@@ -52,9 +52,11 @@
 	<script src="assets/js/controllers/usuarioController.js"></script>
 	<script src="assets/js/controllers/usuarioDetalhesController.js"></script>
 	<script src="assets/js/controllers/contaBancariaController.js"></script>
+	<script src="assets/js/controllers/lancamentoController.js"></script>
 	<script src="assets/js/controllers/indexController.js"></script>
 	<script src="assets/js/services/usuarioService.js"></script>
 	<script src="assets/js/services/contaBancariaService.js"></script>
+	<script src="assets/js/services/lancamentoService.js"></script>
 	
 </body>
 </html>

@@ -16,9 +16,11 @@
 <!--     		<div flex="50">
     			<md-button class="md-raised md-primary" style="color:white">Pesquisar</md-button>
     		</div> -->
+    		<security:authorize access="hasAnyRole('ADMINISTRADOR')">
     		<div flex layout="row" layout-align="end end">
-    			<md-button class="md-raised md-primary" style="color:white; background-color:green" href="#/contaBancaria/form">Novo</md-button>
+    			<md-button class="md-raised md-primary" style="color:white; background-color:#4EBD4E" href="#/contaBancaria/form">Novo</md-button>
     		</div>
+    		</security:authorize>
           </div>
         </md-toolbar>
         <md-divider></md-divider>
@@ -31,7 +33,9 @@
                 <th md-column md-order-by="agencia"><span>Agência</span></th>
                 <th md-column md-order-by="numero"><span>Nr. Conta</span></th>
                 <th md-column md-order-by="saldo"><span>Saldo</span></th>
+                <security:authorize access="hasAnyRole('ADMINISTRADOR')">
                 <th md-column><span>Ações</span></th>
+                </security:authorize>
               </tr>
             </thead>
             <tbody md-body>
@@ -41,17 +45,19 @@
                 <td md-cell>{{conta.agencia}}</td>
                 <td md-cell>{{conta.numero}}</td>
                 <td md-cell>{{conta.saldo | currency }}</td>
+                <security:authorize access="hasAnyRole('ADMINISTRADOR')">
                 <td md-cell>
-        			<md-button class="md-icon-button md-primary md-button md-ink-ripple" aria-label="edit" href="#/contaBancaria/saldoInicial/{{conta.id}}">
-        			<ng-md-icon icon="attach_money" size="20"> </g-md-icon>
-					</md-button>
         			<md-button class="md-icon-button md-primary md-button md-ink-ripple" size="20" aria-label="edit" href="#/contaBancaria/editar/{{conta.id}}">
         			<ng-md-icon icon="edit" size="20"> </g-md-icon>
 					</md-button>
         			<md-button class="md-icon-button md-primary md-button md-ink-ripple" size="20" aria-label="excluir" ng-click="excluirContaBancaria(conta.id);$event.stopPropagation()" style="z-index:1">
         			<ng-md-icon icon="delete" size="20"> </g-md-icon>
 					</md-button>
+        			<md-button ng-if="conta.saldo == 0" class="md-icon-button md-primary md-button md-ink-ripple" aria-label="edit" href="#/contaBancaria/saldoInicial/{{conta.id}}">
+        			<ng-md-icon icon="attach_money" size="20"> </g-md-icon>
+					</md-button>
 				</td>
+				</security:authorize>
               </tr>
             </tbody>
           </table>

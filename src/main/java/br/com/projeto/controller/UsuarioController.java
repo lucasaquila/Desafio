@@ -9,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestWrapper;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -54,22 +56,24 @@ public class UsuarioController {
 	@RequestMapping(method=RequestMethod.GET)
 	public ModelAndView list(){
 		ModelAndView modelAndView = new ModelAndView("usuario/list");
-		modelAndView.addObject("usuarios", usuarioService.findAll());
+		/*modelAndView.addObject("usuarios", usuarioService.findAll(request));*/
 		return modelAndView;
 	}
 
 	@RequestMapping("/listagem")
-	public List<Usuario> getUsuarios(){
-		List<Usuario> usuarios =usuarioService.findAll();
+	public List<Usuario> getUsuarios(SecurityContextHolderAwareRequestWrapper request){
+		List<Usuario> usuarios =usuarioService.findAll(request);
 		return usuarios;
 	}
 		
+	@PreAuthorize("hasRole('ROLE_ADMINISTRADOR')")
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
 	public Usuario save(@RequestBody Usuario usuario){
         System.out.println("Entrou no método");
         return usuarioService.save(usuario);
 	}
 
+	@PreAuthorize("hasRole('ROLE_ADMINISTRADOR')")
     @RequestMapping(value = "/alteraSituacao/{id}", method = RequestMethod.PUT)
     public Usuario updateUsuario(@PathVariable("id") long id, @RequestBody Usuario usuario) {
         System.out.println("Updating User " + id);
@@ -77,13 +81,16 @@ public class UsuarioController {
         usuarioService.updateUser(usuario.getSituacao(), id);
         return usuario;
     }
-    
+	
+	
+	@PreAuthorize("hasRole('ROLE_ADMINISTRADOR')")
     @RequestMapping(value = "/editar/{id}", method = RequestMethod.PUT)
     public Usuario editar(@PathVariable("id") long id, @RequestBody Usuario usuario) {
         usuarioService.updateUsuario(usuario);
         return usuario;
     }
-    
+	
+	@PreAuthorize("hasRole('ROLE_ADMINISTRADOR')")    
 	@RequestMapping(value = "/editar", method = RequestMethod.GET)
 	public ModelAndView alterar(){
 		ModelAndView modelAndView =	new ModelAndView("usuario/editar");
@@ -96,6 +103,7 @@ public class UsuarioController {
         return usuario;
     }
     
+    @PreAuthorize("hasRole('ROLE_ADMINISTRADOR')")
 	@RequestMapping(value = "/excluirUsuario/{id}", method = RequestMethod.DELETE)
 	public Usuario excluir(@PathVariable("id") long id){
 		
@@ -103,13 +111,8 @@ public class UsuarioController {
 		usuarioService.deleteUsuario(id);
 		return usuario;
 	}
-    
-    
-/*    @RequestMapping(value = "/recuperaUsuario/{id}", method = RequestMethod.GET)
-    public Usuario getUser(@PathVariable("id") long id) {
-        Usuario usuario = usuarioService.findById(id);
-        return usuario;
-    }*/
+   
+   
 
 	
 }

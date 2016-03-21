@@ -7,7 +7,7 @@
 <title>Login</title>
 </head>
 <body>
-	<h1>Error Page</h1>
+	<h1>Ocorreu um Erro</h1>
 	<p> ${mensagem} <p>
 
 </body>

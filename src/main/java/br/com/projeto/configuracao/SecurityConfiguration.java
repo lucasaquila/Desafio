@@ -11,17 +11,25 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.annotation.web.servlet.configuration.EnableWebMvcSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.csrf.CsrfFilter;
 
 import br.com.projeto.service.UsuarioLogadoDetailService;
 
 @Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 
 	@Autowired
 	private UsuarioLogadoDetailService service;
 	
+	
+    @Autowired
+    public void configureGlobalSecurity(AuthenticationManagerBuilder auth) throws Exception {
+        auth.inMemoryAuthentication().withUser("lucas-aquila@outlook.com").password("123456").roles("ADMINISTRADOR");
+        auth.inMemoryAuthentication().withUser("usuario@usuario.com").password("123456").roles("USUARIO");
+    }
 	
 	
 	@Override
@@ -33,22 +41,23 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 			.antMatchers("/css/**").permitAll()
 			.antMatchers("/js/**").permitAll()
 			.antMatchers("/jspl/**").permitAll()
-//			.antMatchers("/usuario/form").hasRole("ADMINISTRADOR")
-//			.antMatchers("/usuario/").hasRole("USUARIO")
-//			.antMatchers("/usuario/").hasRole("ADMINISTRADOR")
+			.antMatchers("/usuario/form").hasRole("ADMINISTRADOR")
+			.antMatchers("/usuario/").hasRole("USUARIO")
+			.antMatchers("/usuario/").hasRole("ADMINISTRADOR")
 //			.antMatchers(HttpMethod.POST,"/usuario").hasRole("ADMINISTRADOR")
 //			.antMatchers("/auth/**").permitAll()
 			.anyRequest().authenticated()
+
 		.and()
 			.formLogin()
 			.loginPage("/login")
 			.defaultSuccessUrl("/usuario")
 			.failureUrl("/login?error=true")
-/*			.usernameParameter("j_user")
-			.passwordParameter("j_password")*/
 			.permitAll()
 		.and()
-			.exceptionHandling().accessDeniedPage("/denied");
+			.exceptionHandling().accessDeniedPage("/denied")
+		.and()
+			.addFilterAfter(new CsrfHeaderFilter(), CsrfFilter.class);
 		
 	
 	}

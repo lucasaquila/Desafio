@@ -1,14 +1,19 @@
-angular.module('desafioApp').config(function($routeProvider) {
+angular.module('desafioApp').config(function($routeProvider, $httpProvider) {
+	$httpProvider.interceptors.push('responseObserver');
 	
-	
-	/*USUÁRIOS*/
+	/*LOGIN*/
 	$routeProvider.when("/logout", {
-		templateUrl: "login",
+		templateUrl: "logout",
 		controller: "usuarioController"
 	});
 	
 	$routeProvider.when("/login", {
 		templateUrl: "login",
+		controller: "usuarioController"
+	});
+	
+	$routeProvider.when("/denied", {
+		templateUrl: "denied",
 		controller: "usuarioController"
 	});
 	
@@ -59,5 +64,28 @@ angular.module('desafioApp').config(function($routeProvider) {
 		controller: "contaBancariaController",
 	});
 	
+	/*LANÇAMENTOS*/
+	$routeProvider.when("/lancamento", {
+		templateUrl: "lancamento",
+		controller: "lancamentoController"
+	});
+	
+	$routeProvider.when("/lancamento/deposito", {
+		templateUrl: "lancamento/deposito",
+		controller: "lancamentoController",
+	});
+	
 	/*$routeProvider.otherwise({redirectTo: "/usuario"})*/
+})
+.factory('responseObserver', function responseObserver($q, $window) {
+    return {
+        'responseError': function(errorResponse) {
+            switch (errorResponse.status) {
+            case 403:
+                $window.location = '#/denied';
+                break;
+            }
+            return $q.reject(errorResponse);
+        }
+    };
 });

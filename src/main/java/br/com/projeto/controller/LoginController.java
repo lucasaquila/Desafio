@@ -16,6 +16,8 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class LoginController {
 
+	
+	
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String loginPage(){
 		return "/auth/login";
@@ -53,7 +55,6 @@ public class LoginController {
 	    if (auth != null){    
 	        new SecurityContextLogoutHandler().logout(request, response, auth);
 	    }
-	    /*return new ModelAndView("/auth/login");*/
-	    return "";
+	    return "/auth/login";
 	}
 }

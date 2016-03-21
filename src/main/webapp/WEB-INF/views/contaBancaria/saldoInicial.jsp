@@ -31,7 +31,6 @@
 		<md-input-container class="md-block" flex>
 	    	<label>Saldo Inicial</label> 
 			<input type="number" ng-model="contaBancaria.saldo">
-			{{contaBancaria.saldo}}
 		</md-input-container>
 		</div>
 		<div layout="row">
