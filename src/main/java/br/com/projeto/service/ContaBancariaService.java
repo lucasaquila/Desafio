@@ -26,7 +26,11 @@ public class ContaBancariaService {
 		return repository.findOne(id);
 	}
 	
+	public List<ContaBancaria> findAll(){
+		return repository.findAll();	
+	}
 	
+	//
 	public List<ContaBancaria> findAll(SecurityContextHolderAwareRequestWrapper request){
 		
 		boolean roleAdministrador = request.isUserInRole("ROLE_ADMINISTRADOR");

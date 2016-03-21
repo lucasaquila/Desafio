@@ -1,5 +1,9 @@
 angular.module("desafioApp").factory("contaBancariaService", ['$http', function($http) {
 	
+	var _getContasBancariasByRole = function(){
+		return $http.get('/desafio/contaBancaria/getContasBancariasByRole');
+	};
+	
 	var _getContasBancarias = function(){
 		return $http.get('/desafio/contaBancaria/getContasBancarias');
 	};
@@ -29,6 +33,7 @@ angular.module("desafioApp").factory("contaBancariaService", ['$http', function(
 	}
 	
 	return {
+		getContasBancariasByRole: _getContasBancariasByRole,
 		getContasBancarias: _getContasBancarias,
 		getContaBancaria: _getContaBancaria,
 		getBancos: _getBancos,

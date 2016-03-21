@@ -48,7 +48,7 @@ angular.module("desafioApp").controller('contaBancariaController', function ($sc
 	$scope.contasBancarias = [];
 	
 	$scope.listContasBancarias = function () {
-		contaBancariaService.getContasBancarias().
+		contaBancariaService.getContasBancariasByRole().
 		success ( function ( data )  {
 			$scope.contasBancarias = data;
 			console.log("listou!")
@@ -98,7 +98,7 @@ angular.module("desafioApp").controller('contaBancariaController', function ($sc
 			  contaBancariaService.excluirContaBancaria(id)
 			  .success(function(){
 				  console.log("Excluido com sucesso...")
-				  contaBancariaService.getContasBancarias().
+				  contaBancariaService.getContasBancariasByRole().
 				  success ( function ( data )  {
 					  $scope.contasBancarias = data;
 						  console.log("listou!")

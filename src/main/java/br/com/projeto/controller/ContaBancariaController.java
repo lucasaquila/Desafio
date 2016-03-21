@@ -35,9 +35,15 @@ public class ContaBancariaController {
 	@Autowired
 	private ContaBancariaService contaBancariaService;
 	
-	@RequestMapping("/getContasBancarias")
+	@RequestMapping("/getContasBancariasByRole")
 	public List<ContaBancaria> getContasBancarias(SecurityContextHolderAwareRequestWrapper request){
 		List<ContaBancaria> contasBancarias = contaBancariaService.findAll(request);
+		return contasBancarias;
+	}
+	
+	@RequestMapping("/getContasBancarias")
+	public List<ContaBancaria> getContasBancarias(){
+		List<ContaBancaria> contasBancarias = contaBancariaService.findAll();
 		return contasBancarias;
 	}
 	
