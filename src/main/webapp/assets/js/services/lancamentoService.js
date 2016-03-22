@@ -3,7 +3,18 @@ angular.module("desafioApp").factory("lancamentoService", ['$http', function($ht
 	var _getLancamentos = function(){
 		return $http.get('/desafio/lancamento/getLancamentos');
 	};
+	
+	var _efetuarDeposito = function(lancamento){
+		return $http.post('/desafio/lancamento/efetuarDeposito', lancamento);
+	};
+	
+	var _efetuarSaque = function(lancamento){
+		return $http.post('/desafio/lancamento/efetuarSaque', lancamento);
+	};
+	
 	return {
-		getLancamentos: _getLancamentos
+		getLancamentos: _getLancamentos,
+		efetuarDeposito: _efetuarDeposito,
+		efetuarSaque: _efetuarSaque
 	};
 }]);

@@ -2,6 +2,8 @@ package br.com.projeto.entity;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Calendar;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -27,20 +29,28 @@ public class Lancamento extends AbstractPersistable<Long>{
 	@NotNull
 	private BigDecimal valor;
 	
+/*	@ManyToOne
+	@JoinColumn(columnDefinition="integer",name="id_contabancariaorigem")
+	private ContaBancaria contaBancariaOrigem;
+	
 	@ManyToOne
-	@JoinColumn(name="id_contabancaria")
+	@JoinColumn(columnDefinition="integer", name="id_contabancariadestino")
+	private ContaBancaria contaBancariaDestino;*/
+	
+	@ManyToOne
+	@JoinColumn(columnDefinition="integer", name="id_contabancaria")
 	private ContaBancaria contaBancaria;
 	
 	@Enumerated(EnumType.STRING)
 	private TipoLancamento tipoLancamento;
 
-	private LocalDate data;
+	private Calendar data;
 	
-	public LocalDate getData() {
+	public Calendar getData() {
 		return data;
 	}
 
-	public void setData(LocalDate data) {
+	public void setData(Calendar data) {
 		this.data = data;
 	}
 
@@ -60,14 +70,6 @@ public class Lancamento extends AbstractPersistable<Long>{
 		this.valor = valor;
 	}
 
-	public ContaBancaria getContaBancaria() {
-		return contaBancaria;
-	}
-
-	public void setContaBancaria(ContaBancaria contaBancaria) {
-		this.contaBancaria = contaBancaria;
-	}
-
 	public TipoLancamento getTipoLancamento() {
 		return tipoLancamento;
 	}
@@ -75,11 +77,37 @@ public class Lancamento extends AbstractPersistable<Long>{
 	public void setTipoLancamento(TipoLancamento tipoLancamento) {
 		this.tipoLancamento = tipoLancamento;
 	}
+	
+/*	public ContaBancaria getContaBancariaOrigem() {
+		return contaBancariaOrigem;
+	}
+
+	public void setContaBancariaOrigem(ContaBancaria contaBancariaOrigem) {
+		this.contaBancariaOrigem = contaBancariaOrigem;
+	}*/
+
+/*	public ContaBancaria getContaBancariaDestino() {
+		return contaBancariaDestino;
+	}
+
+	public void setContaBancariaDestino(ContaBancaria contaBancariaDestino) {
+		this.contaBancariaDestino = contaBancariaDestino;
+	}*/
+	
+	
 
 	@Override
 	protected void setId(Long id) {
 		// TODO Auto-generated method stub
 		super.setId(id);
+	}
+
+	public ContaBancaria getContaBancaria() {
+		return contaBancaria;
+	}
+
+	public void setContaBancaria(ContaBancaria contaBancaria) {
+		this.contaBancaria = contaBancaria;
 	}
 	
 	

@@ -30,12 +30,12 @@ angular.module('desafioApp').config(function($routeProvider, $httpProvider) {
 	
 	$routeProvider.when("/usuario/editar/:id", {
 		templateUrl: "usuario/editar",
-		controller: "usuarioDetalhesController",
-		resolve: {
+		controller: "usuarioController"
+/*		resolve: {
 			usuario: function(usuarioService, $route){
 				return usuarioService.getUsuario($route.current.params.id);
 			}
-		}
+		}*/
 	});
 	
 	/*CONTAS BANCÁRIAS*/
@@ -64,6 +64,7 @@ angular.module('desafioApp').config(function($routeProvider, $httpProvider) {
 		controller: "contaBancariaController",
 	});
 	
+	
 	/*LANÇAMENTOS*/
 	$routeProvider.when("/lancamento", {
 		templateUrl: "lancamento",
@@ -72,6 +73,16 @@ angular.module('desafioApp').config(function($routeProvider, $httpProvider) {
 	
 	$routeProvider.when("/lancamento/deposito", {
 		templateUrl: "lancamento/deposito",
+		controller: "lancamentoController",
+	});
+	
+	$routeProvider.when("/lancamento/saque", {
+		templateUrl: "lancamento/saque",
+		controller: "lancamentoController",
+	});
+	
+	$routeProvider.when("/lancamento/transferencia", {
+		templateUrl: "lancamento/transferencia",
 		controller: "lancamentoController",
 	});
 	

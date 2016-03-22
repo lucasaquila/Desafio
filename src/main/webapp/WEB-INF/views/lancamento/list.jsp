@@ -13,9 +13,9 @@
           		</md-input-container>
 	    	</div>
     		<div flex layout="row" layout-align="end end">
-				<md-button class="md-raised md-primary" style="color:white;" href="#/lancamento/deposito">Depósito<ng-md-icon icon="redo"></g-md-icon></md-button>
-    			<md-button class="md-raised md-primary" style="color:white;" href="#/lancamento/saque">Saque<ng-md-icon icon="undo"></g-md-icon></md-button>
-    			<md-button class="md-raised md-primary" style="color:white;" href="#/lancamento/transferencia">Transferência<ng-md-icon icon="loop"></md-button>
+				<md-button class="md-raised md-primary" style="color:white;" href="#/lancamento/deposito">Depósito<ng-md-icon icon="arrow_forward"></g-md-icon></md-button>
+    			<md-button class="md-raised md-primary" style="color:white;" href="#/lancamento/saque">Saque<ng-md-icon icon="arrow_back"></g-md-icon></md-button>
+    			<md-button class="md-raised md-primary" style="color:white;" href="#/lancamento/transferencia">Transferência<ng-md-icon icon="swap_horiz"></md-button>
     		</div>
 
           </div>
@@ -29,6 +29,7 @@
                 <th md-column md-order-by="valor"><span>Valor</span></th>
                 <th md-column md-order-by="banco"><span>Banco</span></th>
                 <th md-column md-order-by="numero"><span>Nr. Conta</span></th>
+                <th md-column md-order-by="titular"><span>Titular</span></th>
                 <th md-column md-order-by="data"><span>Data</span></th>
               </tr>
             </thead>
@@ -38,7 +39,8 @@
                 <td md-cell>{{lancamento.valor  | currency}}</td>
                 <td md-cell>{{lancamento.contaBancaria.banco}}</td>
                 <td md-cell>{{lancamento.contaBancaria.numero}}</td>
-                <td md-cell>{{lancamento.data }}</td>
+                <td md-cell>{{lancamento.contaBancaria.usuario.nome}}</td>
+                <td md-cell>{{ lancamento.data | date:'dd/MM/yyyy'}}</td>
               </tr>
             </tbody>
           </table>

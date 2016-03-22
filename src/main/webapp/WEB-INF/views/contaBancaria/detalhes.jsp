@@ -3,7 +3,7 @@
 <div layout="row" ng-init="listaBancos()">
 	<div flex="20"></div>
 	<div flex=60>
-		<h2>Inserir Saldo Inicial</h2>
+		<h2>Detalhes da Conta</h2>
 		<div layout="row">
 			<md-autocomplete md-selected-item="contaBancaria.usuario" ng-disabled="true"
 				md-search-text="busca"
@@ -29,7 +29,7 @@
 		</div>
 		<div layout="row">
 		<md-input-container class="md-block" flex>
-	    	<label>Saldo Inicial</label> 
+	    	<label>Saldo</label> 
 			<input type="text" ng-model="contaBancaria.saldo" ng-disabled="true">
 		</md-input-container>
 		</div>
