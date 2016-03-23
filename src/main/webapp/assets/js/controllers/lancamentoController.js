@@ -1,4 +1,4 @@
-angular.module("desafioApp").controller('lancamentoController', function ($scope, $routeParams,$location,usuarioService, lancamentoService, contaBancariaService, $mdDialog, $mdMedia){
+angular.module("desafioApp").controller('lancamentoController', function ($scope, $routeParams,$location,usuarioService, lancamentoService, contaBancariaService, $mdDialog, $mdMedia, $q){
 	
 /*	console.log($location.path())
 	$scope.parametro = null;*/
@@ -12,6 +12,16 @@ angular.module("desafioApp").controller('lancamentoController', function ($scope
 	 }
 	$scope.lancamentos = [];
 	
+	 
+	$scope.buscar = function(){
+		console.log($scope.data)
+		lancamentoService.getLancamentosData($scope.dataDe, $scope.dataAte).
+		success ( function (data)  {
+			$scope.lancamentos = data;
+		 })
+
+	};
+	 
 	$scope.listLancamentos = function () {
 		lancamentoService.getLancamentos().
 		success ( function ( data )  {
@@ -35,7 +45,7 @@ angular.module("desafioApp").controller('lancamentoController', function ($scope
 	};
 
 	$scope.depositar = function() {
-
+			$scope.lancamento.tipoLancamento = "ENTRADA"
 		  	console.log($scope.lancamento);
 			lancamentoService.efetuarDeposito($scope.lancamento).
 			success(function(){
@@ -49,19 +59,24 @@ angular.module("desafioApp").controller('lancamentoController', function ($scope
 	
 
 	$scope.sacar = function() {
-
-		  	console.log($scope.lancamento);
+			$scope.lancamento.tipoLancamento = "SAIDA"
 			lancamentoService.efetuarSaque($scope.lancamento).
-			success(function(){
+			success(function(data, status, headers, config){
+
 				console.log("Depósito realizado com sucesso")
 				$location.path("/lancamento");
 			})
-			.error(function(data,status,headers,config,response) {
-				console.log("Error with status code", response);
+			.error(function(data, status, headers, config, errorMessage) {
+				console.log(errorMessage);
 			})
 	};
 	
-	
+/*	$scope.transferencia = function ( model )
+	{
+		var entrada = {};
+		var saida = {};
+		lancamentoService.efetuarTransferencia ( entrada, saida )
+	}*/
 	
 	
 	

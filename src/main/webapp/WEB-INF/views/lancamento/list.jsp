@@ -2,11 +2,18 @@
     <md-content layout="column" flex ng-init="listLancamentos()">
     	<h2 style="margin-left:10px">Movimentações</h2>
     	</div>
+    	
+
       <md-card>
         <md-toolbar class="md-table-toolbar md-default" ng-hide="options.rowSelection && selected.length">
           <div class="md-toolbar-tools">
             <!-- <span>Lista de Usuários</span> -->
-
+       <div layout="row">
+    	<md-datepicker ng-model="dataDe" md-placeholder="De"></md-datepicker>
+    	<md-datepicker ng-model="dataAte" md-placeholder="Até"></md-datepicker>
+		<md-button class="md-raised" ng-click="buscar()">Buscar</md-button>
+    	
+    	</div>
 		    <div flex="40">
     	        <md-input-container class="md-block">
 

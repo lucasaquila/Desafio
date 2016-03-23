@@ -1,22 +1,23 @@
 package br.com.projeto.controller;
 
+import java.util.Calendar;
 import java.util.List;
+
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestWrapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import br.com.projeto.entity.ContaBancaria;
 import br.com.projeto.entity.Lancamento;
-import br.com.projeto.service.ContaBancariaService;
 import br.com.projeto.service.LancamentoService;
 
 @Controller
@@ -58,16 +59,23 @@ public class LancamentoController {
 		return lancamentos;
 	}
 	
+	@RequestMapping("/getLancamentosData")
+	public List<Lancamento> getLancamentosPorData(@RequestParam("dataDe") Calendar dataDe, @RequestParam("dataAte") Calendar dataAte){
+		System.out.println("Chegou =P");
+		/*List<Lancamento> lancamentos = lancamentoService.findByDate(dataDe, dataAte);*/
+		return null;
+	}
+	
 	@RequestMapping(value = "/efetuarDeposito", method = RequestMethod.POST)
 	public Lancamento efetuarDeposito(@RequestBody Lancamento lancamento){
-        System.out.println("Entrou no método");
         return lancamentoService.efetuarDeposito(lancamento);
 	}
 	
 	@RequestMapping(value = "/efetuarSaque", method = RequestMethod.POST)
-	public ResponseEntity<Lancamento> efetuarSaque(@RequestBody Lancamento lancamento){
-        System.out.println("Entrou no método");
-        
+	public ResponseEntity<?> efetuarSaque(@Valid @RequestBody Lancamento lancamento){
+
         return lancamentoService.efetuarSaque(lancamento);
 	}
+
+	
 }

@@ -92,6 +92,8 @@ public class ContaBancariaController {
 		return modelAndView;
 	}
 	
+
+	
 	@PreAuthorize("hasRole('ROLE_ADMINISTRADOR')")
     @RequestMapping(value = "/saldoInicial/{id}", method = RequestMethod.PUT)
     public BigDecimal inserirSaldoInicial(@PathVariable("id") long id, @RequestBody BigDecimal saldo) {
