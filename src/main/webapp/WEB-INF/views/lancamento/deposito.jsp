@@ -6,7 +6,8 @@
 	<div flex=60>
 		<h2>Depósito</h2>
 		<div layout="row">
-			<md-autocomplete md-selected-item="lancamento.contaBancaria"
+			<md-autocomplete required 
+				md-selected-item="lancamento.contaBancaria"
 				md-search-text="busca"
 				md-items="conta in contasBancariasDestino | filter: busca"
 				md-item-text="'Banco: ' + conta.banco + ' - Nr. Conta: ' + conta.numero + ' - Titular: ' + conta.usuario.nome" 

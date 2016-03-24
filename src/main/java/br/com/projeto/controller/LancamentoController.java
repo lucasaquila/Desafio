@@ -1,5 +1,7 @@
 package br.com.projeto.controller;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import br.com.projeto.entity.Lancamento;
+import br.com.projeto.entity.Transferencia;
 import br.com.projeto.service.LancamentoService;
 
 @Controller
@@ -60,10 +63,12 @@ public class LancamentoController {
 	}
 	
 	@RequestMapping("/getLancamentosData")
-	public List<Lancamento> getLancamentosPorData(@RequestParam("dataDe") Calendar dataDe, @RequestParam("dataAte") Calendar dataAte){
+	public List<Lancamento> getLancamentosPorData(@RequestParam(value = "dataDe", required = false) Calendar dataDe, 
+													@RequestParam(value = "dataAte", required = false) Calendar dataAte,
+													SecurityContextHolderAwareRequestWrapper request){
 		System.out.println("Chegou =P");
-		/*List<Lancamento> lancamentos = lancamentoService.findByDate(dataDe, dataAte);*/
-		return null;
+		List<Lancamento> lancamentos = lancamentoService.findByDate(dataDe, dataAte, request);
+		return lancamentos;
 	}
 	
 	@RequestMapping(value = "/efetuarDeposito", method = RequestMethod.POST)
@@ -75,6 +80,12 @@ public class LancamentoController {
 	public ResponseEntity<?> efetuarSaque(@Valid @RequestBody Lancamento lancamento){
 
         return lancamentoService.efetuarSaque(lancamento);
+	}
+	
+	@RequestMapping(value = "/efetuarTransferencia", method = RequestMethod.POST)
+	public ResponseEntity<?> efetuarTransferencia(@RequestBody Transferencia transferencia){
+		return lancamentoService.efetuarTransferencia(transferencia);
+		 
 	}
 
 	

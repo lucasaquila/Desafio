@@ -2,6 +2,7 @@ package br.com.projeto.service;
 
 import java.math.BigDecimal;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.faces.render.ResponseStateManager;
@@ -20,6 +21,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import br.com.projeto.entity.ContaBancaria;
 import br.com.projeto.entity.Erro;
 import br.com.projeto.entity.Lancamento;
+import br.com.projeto.entity.Transferencia;
 import br.com.projeto.entity.UsuarioLogado;
 import br.com.projeto.repository.ContaBancariaRepository;
 import br.com.projeto.repository.LancamentoRepository;
@@ -44,13 +46,22 @@ public class LancamentoService {
 		else
 		{
 			UsuarioLogado user = (UsuarioLogado)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
 			return lancamentoRepository.findByUsuario(user.getId());
 		}
 	}
 
-	public List<Lancamento> findByDate(String dataInicio, String dataFim){
-		return lancamentoRepository.findByData(dataInicio, dataFim);	
+	public List<Lancamento> findByDate(Calendar dataInicio, Calendar dataFim, SecurityContextHolderAwareRequestWrapper request){
+		
+		boolean roleAdministrador = request.isUserInRole("ROLE_ADMINISTRADOR");
+		if(roleAdministrador == true)
+		{
+			return lancamentoRepository.findByData(dataInicio, dataFim);	
+		}
+		else
+		{
+			UsuarioLogado user = (UsuarioLogado)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			return lancamentoRepository.findByDataUsuario(dataInicio, dataFim, user.getId());
+		}
 	}
 	
 	public Lancamento efetuarDeposito(Lancamento lancamento){
@@ -65,11 +76,7 @@ public class LancamentoService {
 	public ResponseEntity<?> efetuarSaque(Lancamento lancamento){
 		Long id = lancamento.getContaBancaria().getId();
 		ContaBancaria contaBancaria = contaBancariaRepository.findOne(id);
-		
-
 		BigDecimal saldoAtual = contaBancaria.getSaldo().subtract(lancamento.getValor());
-
-		/*Assert.assertTrue("O Saldo não deve ser menor que 0", lancamento.getValor().signum() >= 0 );*/
 
 		if(saldoAtual.signum() == -1){
 			Erro erro = new Erro();
@@ -80,7 +87,18 @@ public class LancamentoService {
 		contaBancaria.setSaldo(saldoAtual);
 		contaBancariaRepository.save(contaBancaria);
 		lancamentoRepository.save(lancamento);
-		return new ResponseEntity<>(lancamento, HttpStatus.OK);
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
+	
+	public ResponseEntity<?> efetuarTransferencia(Transferencia transferencia){
+		try {
+			lancamentoRepository.save(transferencia.getEntrada());
+			lancamentoRepository.save(transferencia.getSaida());
+			return new ResponseEntity<>(HttpStatus.OK);
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.CONFLICT).body(e);
+		}
+
 	}
 	
 	

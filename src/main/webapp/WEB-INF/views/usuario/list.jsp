@@ -46,14 +46,14 @@
                 <td md-cell>{{usuario.tipoUsuario == "ROLE_USUARIO" ? "Usuário" : "Administrador" }}</td>
                 <security:authorize access="hasAnyRole('ADMINISTRADOR')">
                 <td md-cell>
-                    <md-switch ng-model="usuario.situacao" aria-label="Switch 2" class="md-primary" ng-change="alterarSituacao(usuario)">
+                    <md-switch ng-model="usuario.situacao" aria-label="Switch 2" class="md-primary" ng-change="alterarSituacaoDialog(usuario)">
     				{{ usuario.situacao == true ? "Ativado" : "Desativado" }} 
     				</md-switch>
                 </td>
                 </security:authorize>
                 <security:authorize access="hasAnyRole('USUARIO')">
                 <td md-cell>
-                    <md-switch ng-model="usuario.situacao" aria-label="Disabled active switch" ng-change="alterarSituacao(usuario)" ng-disabled="true">
+                    <md-switch ng-model="usuario.situacao" aria-label="Disabled active switch" ng-disabled="true">
     				{{ usuario.situacao == true ? "Ativado" : "Desativado" }} 
     				</md-switch>
                 </td>

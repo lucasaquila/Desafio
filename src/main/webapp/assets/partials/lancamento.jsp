@@ -9,7 +9,7 @@
 		<div layout="row">
 		<md-input-container class="md-block" flex>
 	    	<label>Valor</label> 
-			<input type="number" ng-model="lancamento.valor">
+			<input type="number" ng-model="lancamento.valor" min="0" >
 		</md-input-container>
 		</div>
 		<div layout="row">

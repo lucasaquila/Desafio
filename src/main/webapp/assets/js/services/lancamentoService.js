@@ -14,15 +14,17 @@ angular.module("desafioApp").factory("lancamentoService", ['$http', function($ht
 	
 	var _efetuarSaque = function(lancamento){
 		return $http.post('/desafio/lancamento/efetuarSaque', lancamento)
-
+	};
 	
-
+	var _efetuarTransferencia = function(transferencia){
+		return $http.post('/desafio/lancamento/efetuarTransferencia', transferencia)
 	};
 	
 	return {
 		getLancamentos: _getLancamentos,
 		efetuarDeposito: _efetuarDeposito,
 		efetuarSaque: _efetuarSaque,
+		efetuarTransferencia: _efetuarTransferencia,
 		getLancamentosData: _getLancamentosData
 	};
 }]);

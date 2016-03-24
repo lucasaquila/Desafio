@@ -5,7 +5,8 @@ angular.module("desafioApp").controller('lancamentoController', function ($scope
 	
 	
 	 $scope.selected = [];
-	
+	 $scope.dataDe = null;
+	 $scope.dataAte = null;
 	 $scope.lancamento = {
 		data : new Date(),
 	 	tipoLancamento : "ENTRADA"
@@ -71,12 +72,40 @@ angular.module("desafioApp").controller('lancamentoController', function ($scope
 			})
 	};
 	
-/*	$scope.transferencia = function ( model )
-	{
-		var entrada = {};
-		var saida = {};
-		lancamentoService.efetuarTransferencia ( entrada, saida )
-	}*/
+	$scope.transferir = function()
+	{ 
+		var entrada = $scope.lancamento;
+		var saida = {
+				data: $scope.lancamento.data,
+				valor: $scope.lancamento.valor,
+				observacao: $scope.lancamento.observacao,
+				contaBancaria: $scope.lancamento.contaBancariaOrigem,
+			 	tipoLancamento : "SAIDA"
+		};
+		
+		var entrada = {
+				data: $scope.lancamento.data,
+				valor: $scope.lancamento.valor,
+				observacao: $scope.lancamento.observacao,
+				contaBancaria: $scope.lancamento.contaBancariaDestino,
+			 	tipoLancamento : "ENTRADA"
+		};
+		
+		var transferencia = {
+				saida: saida,
+				entrada: entrada
+		}
+		console.log(transferencia);
+		lancamentoService.efetuarTransferencia(transferencia).
+		success(function(data, status, headers, config){
+			console.log("Depósito realizado com sucesso")
+				$location.path("/lancamento");
+			})
+			.error(function(data, status, headers, config, errorMessage) {
+				console.log(errorMessage);
+			})
+		
+	}
 	
 	
 	

@@ -1,6 +1,17 @@
-angular.module("desafioApp").controller('usuarioController', ['$mdEditDialog', '$q', '$scope', '$timeout', '$http', 'usuarioService','$location', '$routeParams',  function ($mdEditDialog, $q, $scope, $timeout, $http, usuarioService, $location, $routeParams) {
+angular.module("desafioApp").controller('usuarioController', ['$mdEditDialog', '$q', '$scope', '$timeout', '$http', 'usuarioService','$location', '$routeParams','$mdToast', '$mdDialog',  function ($mdEditDialog, $q, $scope, $timeout, $http, usuarioService, $location, $routeParams,$mdToast, $mdDialog) {
   'use strict';
   
+  
+  $scope.toast = function(message)
+  {
+	  $mdToast.show(
+		      $mdToast.simple()
+		        .textContent(message)
+		        .position('bottom right')
+		        .hideDelay(3000)
+		    );
+  }
+ 
   $scope.usuarios = [];
   $scope.usuario = {
 		  nome : "",
@@ -44,20 +55,37 @@ angular.module("desafioApp").controller('usuarioController', ['$mdEditDialog', '
 	  })
   };
   
+  
+  $scope.alterarSituacaoDialog = function(selecionado){
+	 
+	    var confirm = $mdDialog.confirm()
+        .title('Alterar Situação do Usuário')
+        .textContent('Você deseja alterar a situação do usuário ' + selecionado.nome + ' para ' + (selecionado.situacao? 'ATIVADO?' : "DESATIVADO?"))
+        .ariaLabel('Lucky day')
+        .ok('Sim')
+        .cancel('Não');
+	  $mdDialog.show(confirm).then(function() {
+		  $scope.alterarSituacao(selecionado);
+		  $scope.toast("Situação de Usuário alterada com sucesso!")
+	  }, function() {
+		  selecionado.situacao = !selecionado.situacao
+	  });
+	  
+  };
+  
   $scope.listUsers = function () {
 	  usuarioService.getUsuarios().
-	  	success ( function ( data )  {
+	  	success ( function ( data ){
 		  $scope.usuarios = data;
 		  console.log("listou!")
 	  })
   };
   
   $scope.adicionarUsuario = function(usuario) {
-	  	console.log($scope.usuario);
 		usuarioService.saveUsuario($scope.usuario).
 		success(function(){
-			console.log("cadastrado com sucesso")
 			$location.path("/usuario");
+			$scope.toast("Usuário Cadastrado com Sucesso!")
 		})
 		.error(function(data,status,headers,config) {
 			console.log("erro");
@@ -72,6 +100,7 @@ angular.module("desafioApp").controller('usuarioController', ['$mdEditDialog', '
 			console.log("Editado com sucesso")
 			delete $scope.usuario;
 			$location.path("/usuario");
+			$scope.toast("Usuário Alterado com Sucesso!")
 		})
 		.error(function() {
 			console.log("erro");

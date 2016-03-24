@@ -51,7 +51,7 @@
 				<div layout="row">
 			<md-button class="md-raised" href="#/lancamento">Voltar</md-button>
 			<div flex></div>
-			<md-button class="md-raised md-primary" ng-click="transferir(lancamento)">Transferir</md-button>
+			<md-button class="md-raised md-primary" ng-click="transferir()">Transferir</md-button>
 		</div>
 		<div flex></div>
 		
