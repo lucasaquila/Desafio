@@ -3,6 +3,7 @@ package br.com.projeto.controller;
 
 import java.util.List;
 
+import javax.mail.MessagingException;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,7 +69,7 @@ public class UsuarioController {
 		
 	@PreAuthorize("hasRole('ROLE_ADMINISTRADOR')")
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
-	public Usuario save(@RequestBody Usuario usuario){
+	public ResponseEntity<?> save(@RequestBody Usuario usuario) throws MessagingException{
         System.out.println("Entrou no método");
         return usuarioService.save(usuario);
 	}

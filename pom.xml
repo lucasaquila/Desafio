@@ -22,6 +22,11 @@
 	
 	<dependencies>
 		<dependency>
+			<groupId>javax.mail</groupId>
+			<artifactId>mail</artifactId>
+			<version>1.4.7</version>
+		</dependency>
+		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>3.8.1</version>
@@ -31,6 +36,12 @@
 			<groupId>javax</groupId>
 			<artifactId>javaee-api</artifactId>
 			<version>7.0</version>
+		</dependency>
+		<!-- Email -->
+		<dependency>
+			<groupId>org.springframework.integration</groupId>
+			<artifactId>spring-integration-mail</artifactId>
+			<version>4.2.0.RELEASE</version>
 		</dependency>
 		<dependency>
 			<groupId>jstl</groupId>
@@ -130,6 +141,7 @@
 			<artifactId>spring-data-jpa</artifactId>
 			<version>1.8.0.RELEASE</version>
 		</dependency>
+		
 		<!-- DWR -->
 		<dependency>
 			<groupId>org.directwebremoting</groupId>

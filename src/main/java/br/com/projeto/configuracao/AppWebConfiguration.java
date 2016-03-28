@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 
 import org.directwebremoting.annotations.AnnotationsConfigurator;
 import org.directwebremoting.annotations.DataTransferObject;
@@ -28,6 +29,8 @@ import org.springframework.format.datetime.DateFormatter;
 import org.springframework.format.datetime.DateFormatterRegistrar;
 import org.springframework.format.support.DefaultFormattingConversionService;
 import org.springframework.format.support.FormattingConversionService;
+import org.springframework.mail.MailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
@@ -68,7 +71,21 @@ public class AppWebConfiguration extends WebMvcConfigurerAdapter {
 	    registry.addResourceHandler("/WEB-INF/**").addResourceLocations("/WEB-INF/");
 	    registry.addResourceHandler("/partials/**").addResourceLocations("/partials/");
 	  }
-	
+	 
+	 @Bean
+	 public MailSender mailSender() {
+		 JavaMailSenderImpl javaMailSenderImpl = new JavaMailSenderImpl();
+		 javaMailSenderImpl.setHost("smtp.gmail.com");
+		 javaMailSenderImpl.setPassword("46802739mtl7");
+		 javaMailSenderImpl.setPort(587);
+		 javaMailSenderImpl.setUsername("lucas.aquila90@gmail.com");
+		 Properties mailProperties = new Properties();
+		 mailProperties.put("mail.smtp.starttls.enable", true);
+		 mailProperties.put("mail.smtp.auth", true);
+		 mailProperties.put("mail.smtp.starttls.enable", true);
+		 javaMailSenderImpl.setJavaMailProperties(mailProperties);
+		 return javaMailSenderImpl;
+	 }
 	
 	/*CONFIGURAÇÕES DWR*/
 	@Bean
